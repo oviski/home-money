@@ -17,20 +17,20 @@ CREATE TABLE `Checks` (
 	`ShopName` varchar(15),
 	`WhoPayID` int NOT NULL,
 	`PaymentTypeID` int NOT NULL,
-	`WhoPayID` int(15) NOT NULL,
 	`DetailsAllow` bit NOT NULL DEFAULT '0',
+	`Comments` varchar(15),
 	PRIMARY KEY (`CheckID`)
 )
 ENGINE = InnoDB
 AUTO_INCREMENT = 1002;
 
-CREATE TABLE `Details` (
+CREATE TABLE `ChecksDetails` (
 	`CheckID` bigint NOT NULL,
 	`ChekPositionID` bigint NOT NULL,
 	`ProductID` bigint NOT NULL,
 	`SumOfProduct` bigint DEFAULT '0',
 	`PositionDatails` varchar,
-	`DetailsID` varchar NOT NULL,
+	`CheckDetailsID` varchar NOT NULL,
 	PRIMARY KEY (`DetailsID`)
 )
 ENGINE = InnoDB
