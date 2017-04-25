@@ -1,4 +1,4 @@
-package lv.javaguru.java2.domain;
+package lv.javaguru.java2.domain.check;
 
 import java.sql.Date;
 
@@ -11,8 +11,8 @@ public class Check {
     private Long sumOfCheck;
     private String shopName;
     private Integer whoPayID;
-    private Integer paymentTypeID;
-    private boolean detailsAllow;
+    private Integer userMoneyAccountID;
+    private Boolean detailsAllow;
     private String comments;
 
     public Long getCheckID() {
@@ -52,22 +52,22 @@ public class Check {
     }
 
     public void setWhoPayID(Integer whoPayID) {
-        this.whoPayID = whoPayID;
+        this.whoPayID = this.whoPayID;
     }
 
-    public Integer getPaymentTypeID() {
-        return paymentTypeID;
+    public Integer getUserMoneyAccountID() {
+        return userMoneyAccountID;
     }
 
-    public void setPaymentTypeID(Integer paymentTypeID) {
-        this.paymentTypeID = paymentTypeID;
+    public void setUserMoneyAccountID(Integer userMoneyAccountID) {
+        this.userMoneyAccountID = userMoneyAccountID;
     }
 
-    public boolean isDetailsAllow() {
+    public Boolean getDetailsAllow() {
         return detailsAllow;
     }
 
-    public void setDetailsAllow(boolean detailsAllow) {
+    public void setDetailsAllow(Boolean detailsAllow) {
         this.detailsAllow = detailsAllow;
     }
 
@@ -80,12 +80,17 @@ public class Check {
     }
 }
 /*
-`CheckID` bigint NOT NULL,
+CREATE TABLE `Checks` (
+	`CheckID` bigint NOT NULL,
 	`DatePourches` DATE NOT NULL,
 	`SumOfCheck` bigint NOT NULL DEFAULT '0',
 	`ShopName` varchar(15),
 	`WhoPayID` int NOT NULL,
-	`PaymentTypeID` int NOT NULL,
+	`UserMoneyAccountID` int NOT NULL,
 	`DetailsAllow` bit NOT NULL DEFAULT '0',
-	`Comments` varchar(15),
+	`Comments` varchar,
+	PRIMARY KEY (`CheckID`)
+)
+ENGINE = InnoDB
+AUTO_INCREMENT = 1002;
  */

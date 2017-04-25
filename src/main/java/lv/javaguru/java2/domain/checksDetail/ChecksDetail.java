@@ -1,4 +1,6 @@
-package lv.javaguru.java2.domain;
+package lv.javaguru.java2.domain.checksDetail;
+
+import lv.javaguru.java2.domain.subcategory.Subcategory;
 
 /**
  * Created by admin on 20.04.2017.
@@ -6,6 +8,8 @@ package lv.javaguru.java2.domain;
 public class ChecksDetail {
     private Long checkID;
     private Long checkPositionID;
+    private Integer categoryID;
+    private Integer SubcategoryID;
     private Long productID;
     private Long sumOfProducts;
     private String positionDetails;
@@ -25,6 +29,22 @@ public class ChecksDetail {
 
     public void setCheckPositionID(Long checkPositionID) {
         this.checkPositionID = checkPositionID;
+    }
+
+    public Integer getCategoryID() {
+        return categoryID;
+    }
+
+    public void setCategoryID(Integer categoryID) {
+        this.categoryID = categoryID;
+    }
+
+    public Integer getSubcategoryID() {
+        return SubcategoryID;
+    }
+
+    public void setSubcategoryID(Integer subcategoryID) {
+        SubcategoryID = subcategoryID;
     }
 
     public Long getProductID() {
@@ -60,14 +80,19 @@ public class ChecksDetail {
     }
 }
 /*
-CREATE TABLE `ChecksDetails` (
+CREATE TABLE `CheckDetails` (
 	`CheckID` bigint NOT NULL,
 	`ChekPositionID` bigint NOT NULL,
+	`CategoryID` int NOT NULL,
+	`SubcategoryID` int NOT NULL,
 	`ProductID` bigint NOT NULL,
 	`SumOfProduct` bigint DEFAULT '0',
 	`PositionDatails` varchar,
 	`DetailsID` varchar NOT NULL,
 	PRIMARY KEY (`DetailsID`)
+)
+ENGINE = InnoDB
+AUTO_INCREMENT = 1002;
 )
 
  */

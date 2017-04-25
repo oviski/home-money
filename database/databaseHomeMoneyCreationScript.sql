@@ -8,7 +8,33 @@ USE `java2` ;
 -- -----------------------------------------------------
 -- Table `Java2_test`.`users`
 -- -----------------------------------------------------
---DROP TABLE IF EXISTS `users` ;
+-- DROP TABLE IF EXISTS `users` ;
+--ALTER TABLE `Checks` DROP FOREIGN KEY `Checks_fk0`;
+--
+--ALTER TABLE `Category` DROP FOREIGN KEY `Category_fk0`;
+--
+--ALTER TABLE `Subcategory` DROP FOREIGN KEY `Subcategory_fk0`;
+--
+--ALTER TABLE `UsersID` DROP FOREIGN KEY `UsersID_fk0`;
+--
+--ALTER TABLE `UsersMoneyAccount` DROP FOREIGN KEY `UsersMoneyAccount_fk0`;
+--
+--ALTER TABLE `Products` DROP FOREIGN KEY `Products_fk0`;
+--
+--DROP TABLE IF EXISTS `Checks`;
+--
+--DROP TABLE IF EXISTS `Details`;
+--
+--DROP TABLE IF EXISTS `Category`;
+--
+--DROP TABLE IF EXISTS `Subcategory`;
+--
+--DROP TABLE IF EXISTS `UsersID`;
+--
+--DROP TABLE IF EXISTS `UsersMoneyAccount`;
+--
+--DROP TABLE IF EXISTS `Products`;
+
 
 CREATE TABLE `Checks` (
 	`CheckID` bigint NOT NULL,
@@ -16,21 +42,23 @@ CREATE TABLE `Checks` (
 	`SumOfCheck` bigint NOT NULL DEFAULT '0',
 	`ShopName` varchar(15),
 	`WhoPayID` int NOT NULL,
-	`PaymentTypeID` int NOT NULL,
+	`UserMoneyAccountID` int NOT NULL,
 	`DetailsAllow` bit NOT NULL DEFAULT '0',
-	`Comments` varchar(15),
+	`Comments` varchar,
 	PRIMARY KEY (`CheckID`)
 )
 ENGINE = InnoDB
 AUTO_INCREMENT = 1002;
 
-CREATE TABLE `ChecksDetails` (
+CREATE TABLE `CheckDetails` (
 	`CheckID` bigint NOT NULL,
 	`ChekPositionID` bigint NOT NULL,
+	`CategoryID` int NOT NULL,
+	`SubcategoryID` int NOT NULL,
 	`ProductID` bigint NOT NULL,
 	`SumOfProduct` bigint DEFAULT '0',
 	`PositionDatails` varchar,
-	`CheckDetailsID` varchar NOT NULL,
+	`DetailsID` varchar NOT NULL,
 	PRIMARY KEY (`DetailsID`)
 )
 ENGINE = InnoDB
@@ -46,15 +74,15 @@ ENGINE = InnoDB
 AUTO_INCREMENT = 1002;
 
 CREATE TABLE `Subcategory` (
-	`SubcategoryID` bigint NOT NULL,
 	`CategoryID` varchar NOT NULL,
+	`SubcategoryID` bigint NOT NULL,
 	`SubcategoryName` varchar NOT NULL,
 	PRIMARY KEY (`SubcategoryID`)
 )
 ENGINE = InnoDB
 AUTO_INCREMENT = 1002;
 
-CREATE TABLE `Users` (
+CREATE TABLE `UsersID` (
 	`UserID` int NOT NULL UNIQUE,
 	`UserName` varchar NOT NULL UNIQUE,
 	PRIMARY KEY (`UserID`)
@@ -62,62 +90,36 @@ CREATE TABLE `Users` (
 ENGINE = InnoDB
 AUTO_INCREMENT = 1002;
 
-CREATE TABLE `MoneyAccounNumber` (
-	`MoneyAccountID` int NOT NULL UNIQUE,
+CREATE TABLE `UsersMoneyAccount` (
+	`UserMoneyAccountID` int NOT NULL,
 	`UserID` int NOT NULL,
-	`PaymentTypeName` varchar NOT NULL
-)
-ENGINE = InnoDB
-AUTO_INCREMENT = 1002;
-
-CREATE TABLE `MoneyBalanse` (
-	`MoneyBalanceID` bigint NOT NULL UNIQUE,
-	`PaymentTypeID` int NOT NULL DEFAULT '0',
-	`StandingOfMoney` bigint NOT NULL,
-	`DateOfLastChange` DATETIME NOT NULL,
-	`CheckID` bigint,
-	`ReceiptsID` bigint,
-	PRIMARY KEY (`MoneyBalanceID`)
-)
-ENGINE = InnoDB
-AUTO_INCREMENT = 1002;
-
-CREATE TABLE `Receipts` (
-	`ReceiptsID` bigint NOT NULL,
-	`UserID` bigint NOT NULL,
-	`MoneyAccountID` int NOT NULL,
-	`SumOfReceipts` bigint NOT NULL DEFAULT '0',
-	`DetailsReceipts` varchar NOT NULL,
-	PRIMARY KEY (`ReceiptsID`)
+	`MoneyAccountName` varchar NOT NULL UNIQUE,
+	PRIMARY KEY (`UserMoneyAccountID`)
 )
 ENGINE = InnoDB
 AUTO_INCREMENT = 1002;
 
 CREATE TABLE `Products` (
 	`ProductID` bigint NOT NULL,
-	`ProductName` varchar NOT NULL,
 	`CategoryID` int NOT NULL,
-	`SubcategoryID` int NOT NULL,
+	`SubcategoryID` bigint,
+	`ProductName` bigint NOT NULL,
 	PRIMARY KEY (`ProductID`)
 )
 ENGINE = InnoDB
 AUTO_INCREMENT = 1002;
 
-
 ALTER TABLE `Checks` ADD CONSTRAINT `Checks_fk0` FOREIGN KEY (`CheckID`) REFERENCES `Details`(`CheckID`);
 
-ALTER TABLE `Category` ADD CONSTRAINT `Category_fk0` FOREIGN KEY (`CategoryID`) REFERENCES `Products`(`CategoryID`);
+ALTER TABLE `Category` ADD CONSTRAINT `Category_fk0` FOREIGN KEY (`CategoryID`) REFERENCES `Details`(`CategoryID`);
 
-ALTER TABLE `Subcategory` ADD CONSTRAINT `Subcategory_fk0` FOREIGN KEY (`SubcategoryID`) REFERENCES `Products`(`SubcategoryID`);
+ALTER TABLE `Subcategory` ADD CONSTRAINT `Subcategory_fk0` FOREIGN KEY (`SubcategoryID`) REFERENCES `Details`(`SubcategoryID`);
 
-ALTER TABLE `Users` ADD CONSTRAINT `Users_fk0` FOREIGN KEY (`UserID`) REFERENCES `Checks`(`WhoPayID`);
+ALTER TABLE `UsersID` ADD CONSTRAINT `UsersID_fk0` FOREIGN KEY (`UserID`) REFERENCES `Checks`(`WhoPayID`);
 
-ALTER TABLE `MoneyAccounNumber` ADD CONSTRAINT `MoneyAccounNumber_fk0` FOREIGN KEY (`MoneyAccountID`) REFERENCES `Checks`(`PaymentTypeID`);
+ALTER TABLE `UsersMoneyAccount` ADD CONSTRAINT `UsersMoneyAccount_fk0` FOREIGN KEY (`UserMoneyAccountID`) REFERENCES `Checks`(`UserMoneyAccountID`);
 
 ALTER TABLE `Products` ADD CONSTRAINT `Products_fk0` FOREIGN KEY (`ProductID`) REFERENCES `Details`(`ProductID`);
-
-
-
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
