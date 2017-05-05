@@ -1,16 +1,52 @@
 package lv.javaguru.java2.database.jdbc;
 
+import com.mysql.jdbc.Connection;
+import com.mysql.jdbc.PreparedStatement;
+import lv.javaguru.java2.database.CategoryDAO;
 import lv.javaguru.java2.database.DBException;
-import lv.javaguru.java2.database.UserDAO;
-import lv.javaguru.java2.domain.User;
+import lv.javaguru.java2.domain.category.Category;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Created by admin on 03.05.2017.
+ */
+public class CategoryDAOImpl extends DAOImpl implements CategoryDAO{
+    @Override
+    public Category save(Category category) throws DBException{
+        Connection connection = null;
+
+        try {
+            connection = (Connection) getConnection();
+            PreparedStatement preparedStatement =
+                    connection.prepareStatement("insert into CATEGORY values (default, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
+            preparedStatement.setString(1, category.getCategoryName());
+            preparedStatement.setBoolean(2, category.getSubcategoryAllow());
+        }
+    }
+
+    @Override
+    public Optional<Category> getById(Long id) {
+        return null;
+    }
+
+    @Override
+    public void delete(Long id) {
+
+    }
+
+    @Override
+    public void update(Category user) {
+
+    }
+
+    @Override
+    public List<Category> getAll() {
+        return null;
+    }
+}
+/*
 public class UserDAOImpl extends DAOImpl implements UserDAO {
 
     public User save(User user) throws DBException {
@@ -133,3 +169,5 @@ public class UserDAOImpl extends DAOImpl implements UserDAO {
     }
 
 }
+
+ */

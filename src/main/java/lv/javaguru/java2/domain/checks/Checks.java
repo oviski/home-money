@@ -1,18 +1,18 @@
-package lv.javaguru.java2.domain.check;
+package lv.javaguru.java2.domain.checks;
 
 import java.sql.Date;
 
 /**
  * Created by admin on 20.04.2017.
  */
-public class Check {
+public class Checks {
     private Long checkID;
     private Date dataPourches;
     private Long sumOfCheck;
     private String shopName;
-    private Integer whoPayID;
+    private Integer userID;
     private Integer userMoneyAccountID;
-    private Boolean detailsAllow;
+    private Boolean detailAllow;
     private String comments;
 
     public Long getCheckID() {
@@ -47,12 +47,12 @@ public class Check {
         this.shopName = shopName;
     }
 
-    public Integer getWhoPayID() {
-        return whoPayID;
+    public Integer getUserID() {
+        return userID;
     }
 
-    public void setWhoPayID(Integer whoPayID) {
-        this.whoPayID = this.whoPayID;
+    public void setUserID(Integer userID) {
+        this.userID = this.userID;
     }
 
     public Integer getUserMoneyAccountID() {
@@ -63,12 +63,12 @@ public class Check {
         this.userMoneyAccountID = userMoneyAccountID;
     }
 
-    public Boolean getDetailsAllow() {
-        return detailsAllow;
+    public Boolean getDetailAllow() {
+        return detailAllow;
     }
 
-    public void setDetailsAllow(Boolean detailsAllow) {
-        this.detailsAllow = detailsAllow;
+    public void setDetailAllow(Boolean detailAllow) {
+        this.detailAllow = detailAllow;
     }
 
     public String getComments() {
@@ -85,9 +85,9 @@ CREATE TABLE `Checks` (
 	`DatePourches` DATE NOT NULL,
 	`SumOfCheck` bigint NOT NULL DEFAULT '0',
 	`ShopName` varchar(15),
-	`WhoPayID` int NOT NULL,
+	`UserID` int NOT NULL,
 	`UserMoneyAccountID` int NOT NULL,
-	`DetailsAllow` bit NOT NULL DEFAULT '0',
+	`DetailAllow` bit NOT NULL DEFAULT '0',
 	`Comments` varchar,
 	PRIMARY KEY (`CheckID`)
 )

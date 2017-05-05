@@ -5,15 +5,23 @@ import lv.javaguru.java2.domain.subcategory.Subcategory;
 /**
  * Created by admin on 20.04.2017.
  */
-public class ChecksDetail {
+public class CheckDetails {
+    private Long checkDetailID;
     private Long checkID;
-    private Long checkPositionID;
+    private Integer checkPositionID;
     private Integer categoryID;
-    private Integer SubcategoryID;
+    private Integer subcategoryID;
     private Long productID;
     private Long sumOfProducts;
     private String positionDetails;
-    private Long checkDetailsID;
+
+    public Long getCheckDetailID() {
+        return checkDetailID;
+    }
+
+    public void setCheckDetailID(Long checkDetailID) {
+        this.checkDetailID = checkDetailID;
+    }
 
     public Long getCheckID() {
         return checkID;
@@ -23,11 +31,11 @@ public class ChecksDetail {
         this.checkID = checkID;
     }
 
-    public Long getCheckPositionID() {
+    public Integer getCheckPositionID() {
         return checkPositionID;
     }
 
-    public void setCheckPositionID(Long checkPositionID) {
+    public void setCheckPositionID(Integer checkPositionID) {
         this.checkPositionID = checkPositionID;
     }
 
@@ -40,11 +48,11 @@ public class ChecksDetail {
     }
 
     public Integer getSubcategoryID() {
-        return SubcategoryID;
+        return subcategoryID;
     }
 
     public void setSubcategoryID(Integer subcategoryID) {
-        SubcategoryID = subcategoryID;
+        this.subcategoryID = subcategoryID;
     }
 
     public Long getProductID() {
@@ -69,14 +77,6 @@ public class ChecksDetail {
 
     public void setPositionDetails(String positionDetails) {
         this.positionDetails = positionDetails;
-    }
-
-    public Long getCheckDetailsID() {
-        return checkDetailsID;
-    }
-
-    public void setCheckDetailsID(Long checkDetailsID) {
-        this.checkDetailsID = checkDetailsID;
     }
 }
 /*

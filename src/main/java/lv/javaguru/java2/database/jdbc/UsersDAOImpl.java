@@ -1,63 +1,66 @@
 package lv.javaguru.java2.database.jdbc;
 
+import com.mysql.jdbc.Connection;
 import lv.javaguru.java2.database.DBException;
-import lv.javaguru.java2.database.UserDAO;
+import lv.javaguru.java2.database.UsersDAO;
 import lv.javaguru.java2.domain.User;
+import lv.javaguru.java2.domain.users.Users;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class UserDAOImpl extends DAOImpl implements UserDAO {
 
-    public User save(User user) throws DBException {
+/**
+ * Created by admin on 03.05.2017.
+ */
+public class UsersDAOImpl extends DAOImpl implements UsersDAO {
+
+    public Users save(Users users) throws DBException {
         Connection connection = null;
 
         try {
-            connection = getConnection();
+            connection = (Connection) getConnection();
             PreparedStatement preparedStatement =
-                    connection.prepareStatement("insert into USERS values (default, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
-            preparedStatement.setString(1, user.getFirstName());
-            preparedStatement.setString(2, user.getLastName());
+                    connection.prepareStatement("insert into USERS values (default, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
+            preparedStatement.setString(1, users.getUserName());
 
             preparedStatement.executeUpdate();
             ResultSet rs = preparedStatement.getGeneratedKeys();
             if (rs.next()){
-                user.setUserId(rs.getLong(1));
+                users.setUserID(rs.getInt(1));
             }
         } catch (Throwable e) {
-            System.out.println("Exception while execute UserDAOImpl.save()");
+            System.out.println("Exception while execute UsersDAOImpl.save()");
             e.printStackTrace();
             throw new DBException(e);
         } finally {
             closeConnection(connection);
         }
 
-        return user;
+        return users;
     }
 
-    public Optional<User> getById(Long id) throws DBException {
+    public Optional<Users> getById(int id) throws DBException {
         Connection connection = null;
 
         try {
-            connection = getConnection();
+            connection = (Connection) getConnection();
             PreparedStatement preparedStatement = connection
                     .prepareStatement("select * from USERS where UserID = ?");
-            preparedStatement.setLong(1, id);
+            preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
-            User user = null;
+            Users users = null;
             if (resultSet.next()) {
-                user = new User();
-                user.setUserId(resultSet.getLong("UserID"));
-                user.setFirstName(resultSet.getString("FirstName"));
-                user.setLastName(resultSet.getString("LastName"));
+                users = new Users();
+                users.setUserID(resultSet.getInt("UserID"));
+                users.setUserName(resultSet.getString("UserName"));
             }
-            return Optional.ofNullable(user);
+            return Optional.ofNullable(users);
         } catch (Throwable e) {
-            System.out.println("Exception while execute UserDAOImpl.getById()");
+            System.out.println("Exception while execute UsersDAOImpl.getById()");
             e.printStackTrace();
             throw new DBException(e);
         } finally {
@@ -65,36 +68,35 @@ public class UserDAOImpl extends DAOImpl implements UserDAO {
         }
     }
 
-    public List<User> getAll() throws DBException {
-        List<User> users = new ArrayList<User>();
+    public List<Users> getAll() throws DBException {
+        List<Users> usersList = new ArrayList<Users>();
         Connection connection = null;
 
         try {
-            connection = getConnection();
+            connection = (Connection) getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement("select * from USERS");
 
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                User user = new User();
-                user.setUserId(resultSet.getLong("UserID"));
-                user.setFirstName(resultSet.getString("FirstName"));
-                user.setLastName(resultSet.getString("LastName"));
-                users.add(user);
+                Users users = new Users();
+                users.setUserID(resultSet.getInt("UserID"));
+                users.setUserName(resultSet.getString("UserName"));
+                usersList.add(users);
             }
         } catch (Throwable e) {
-            System.out.println("Exception while getting customer list UserDAOImpl.getList()");
+            System.out.println("Exception while getting customer list UsersDAOImpl.getList()");
             e.printStackTrace();
             throw new DBException(e);
         } finally {
             closeConnection(connection);
         }
-        return users;
+        return usersList;
     }
 
     public void delete(Long id) throws DBException {
         Connection connection = null;
         try {
-            connection = getConnection();
+            connection = (Connection) getConnection();
             PreparedStatement preparedStatement = connection
                     .prepareStatement("delete from USERS where UserID = ?");
             preparedStatement.setLong(1, id);
@@ -115,7 +117,7 @@ public class UserDAOImpl extends DAOImpl implements UserDAO {
 
         Connection connection = null;
         try {
-            connection = getConnection();
+            connection = (Connection) getConnection();
             PreparedStatement preparedStatement = connection
                     .prepareStatement("update USERS set FirstName = ?, LastName = ? " +
                             "where UserID = ?");
@@ -133,3 +135,4 @@ public class UserDAOImpl extends DAOImpl implements UserDAO {
     }
 
 }
+
