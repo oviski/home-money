@@ -4,15 +4,15 @@ package lv.javaguru.java2.domain.subcategory;
  * Created by admin on 23.04.2017.
  */
 public class Subcategory {
-    private Long subcategoryID;
+    private Integer subcategoryID;
     private Integer categoryID;
     private String subcategoryName;
 
-    public Long getSubcategoryID() {
+    public Integer getSubcategoryID() {
         return subcategoryID;
     }
 
-    public void setSubcategoryID(Long subcategoryID) {
+    public void setSubcategoryID(Integer subcategoryID) {
         this.subcategoryID = subcategoryID;
     }
 

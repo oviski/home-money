@@ -11,9 +11,9 @@ import java.util.Optional;
 public interface UsersMoneyAccountDAO {
     UsersMoneyAccount save(UsersMoneyAccount usersMoneyAccount);
 
-    Optional<UsersMoneyAccount> getById(Long id);
+    Optional<UsersMoneyAccount> getById(Integer id);
 
-    void delete(Long id);
+    void delete(Integer id);
 
     void update(UsersMoneyAccount usersMoneyAccount);
 

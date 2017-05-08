@@ -11,9 +11,9 @@ import java.util.Optional;
 public interface SubcategoryDAO {
     Subcategory save(Subcategory subcategory);
 
-    Optional<Subcategory> getById(Long id);
+    Optional<Subcategory> getById(Integer id);
 
-    void delete(Long id);
+    void delete(Integer id);
 
     void update(Subcategory subcategory);
 

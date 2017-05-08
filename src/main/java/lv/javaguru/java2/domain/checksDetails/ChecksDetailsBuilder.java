@@ -1,9 +1,9 @@
-package lv.javaguru.java2.domain.checksDetail;
+package lv.javaguru.java2.domain.checksDetails;
 
 /**
  * Created by admin on 24.04.2017.
  */
-public class CheckDetailsBuilder {
+public class ChecksDetailsBuilder {
     private Long checkDetailsID;
     private Integer checkPositionID;
     private Integer categoryID;
@@ -13,44 +13,44 @@ public class CheckDetailsBuilder {
     private String positionDetails;
 
 
-    private CheckDetailsBuilder() {}
+    private ChecksDetailsBuilder() {}
 
-    public static CheckDetailsBuilder createChecksDetail() {
-        return new CheckDetailsBuilder();
+    public static ChecksDetailsBuilder createChecksDetail() {
+        return new ChecksDetailsBuilder();
     }
 
-    public CheckDetails build() {
-        CheckDetails checkDetails = new CheckDetails();
-        checkDetails.setCheckPositionID(checkPositionID);
-        checkDetails.setCategoryID(categoryID);
-        checkDetails.setSubcategoryID(subcategoryID);
-        checkDetails.setProductID(productID);
-        checkDetails.setSumOfProducts(sumOfProducts);
-        checkDetails.setPositionDetails(positionDetails);
-        return checkDetails;
+    public ChecksDetails build() {
+        ChecksDetails checksDetails = new ChecksDetails();
+        checksDetails.setCheckPositionID(checkPositionID);
+        checksDetails.setCategoryID(categoryID);
+        checksDetails.setSubcategoryID(subcategoryID);
+        checksDetails.setProductID(productID);
+        checksDetails.setSumOfProducts(sumOfProducts);
+        checksDetails.setPositionDetails(positionDetails);
+        return checksDetails;
     }
 
-    public CheckDetailsBuilder withCheckPositionID(Integer checkPositionID){
+    public ChecksDetailsBuilder withCheckPositionID(Integer checkPositionID){
         this.checkPositionID = checkPositionID;
         return this;
     }
-    public CheckDetailsBuilder withCategoryID(Integer categoryID){
+    public ChecksDetailsBuilder withCategoryID(Integer categoryID){
         this.categoryID = categoryID;
         return this;
     }
-    public CheckDetailsBuilder withSubcategoryID(Integer subcategoryID){
+    public ChecksDetailsBuilder withSubcategoryID(Integer subcategoryID){
         this.subcategoryID = subcategoryID;
         return this;
     }
-    public CheckDetailsBuilder withProductsID(Long productID){
+    public ChecksDetailsBuilder withProductsID(Long productID){
         this.productID = productID;
         return this;
     }
-    public CheckDetailsBuilder withSumOfProducts(Long sumOfProducts){
+    public ChecksDetailsBuilder withSumOfProducts(Long sumOfProducts){
         this.sumOfProducts = sumOfProducts;
         return this;
     }
-    public CheckDetailsBuilder withPositionDetails(String positionDetails){
+    public ChecksDetailsBuilder withPositionDetails(String positionDetails){
         this.positionDetails = positionDetails;
         return this;
     }

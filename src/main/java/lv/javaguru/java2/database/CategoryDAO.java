@@ -11,9 +11,9 @@ import java.util.Optional;
 public interface CategoryDAO {
     Category save(Category category);
 
-    Optional<Category> getById(Long id);
+    Optional<Category> getById(Integer id);
 
-    void delete(Long id);
+    void delete(Integer id);
 
     void update(Category user);
 

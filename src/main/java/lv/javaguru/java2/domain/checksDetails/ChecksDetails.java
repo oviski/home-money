@@ -1,11 +1,9 @@
-package lv.javaguru.java2.domain.checksDetail;
-
-import lv.javaguru.java2.domain.subcategory.Subcategory;
+package lv.javaguru.java2.domain.checksDetails;
 
 /**
  * Created by admin on 20.04.2017.
  */
-public class CheckDetails {
+public class ChecksDetails {
     private Long checkDetailID;
     private Long checkID;
     private Integer checkPositionID;

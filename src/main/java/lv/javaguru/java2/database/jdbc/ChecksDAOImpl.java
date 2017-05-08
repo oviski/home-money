@@ -1,12 +1,12 @@
 package lv.javaguru.java2.database.jdbc;
 
-import com.mysql.jdbc.Connection;
-import com.mysql.jdbc.PreparedStatement;
 import lv.javaguru.java2.database.ChecksDAO;
 import lv.javaguru.java2.database.DBException;
+import lv.javaguru.java2.database.jdbc.DAOImpl;
 import lv.javaguru.java2.domain.checks.Checks;
 
-
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,11 +17,11 @@ import java.util.Optional;
  */
 public class ChecksDAOImpl extends DAOImpl implements ChecksDAO {
     @Override
-    public Checks save(Checks checks) throws DBException{
+    public Checks save(Checks checks) throws DBException {
         Connection connection = null;
 
         try {
-            connection = (Connection) getConnection();
+            connection = getConnection();
             PreparedStatement preparedStatement = (PreparedStatement) connection.prepareStatement("insert into CHECKS values (default, ?, ?, ?, ?, ?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
             preparedStatement.setDate(1, checks.getDataPourches());
             preparedStatement.setLong(2, checks.getSumOfCheck());
@@ -52,7 +52,7 @@ public class ChecksDAOImpl extends DAOImpl implements ChecksDAO {
         Connection connection = null;
 
         try {
-            connection = (Connection) getConnection();
+            connection = getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement("select * from CHECKS where CheckID = ?");
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -107,9 +107,7 @@ public class ChecksDAOImpl extends DAOImpl implements ChecksDAO {
         try {
             connection = getConnection();
             java.sql.PreparedStatement preparedStatement = connection
-                    .prepareStatement("update CHECKS set DatePourches = ?, SumOfCheck = ?, " +
-                            "ShopName = ?, UserID = ?, UserMoneyAccountID = ?, DetailAllow = ?, Comments = ?, " +
-                            "where CheckID = ?");
+                    .prepareStatement("update CHECKS set DatePourches = ?, SumOfCheck = ?, ShopName = ?, UserID = ?, UserMoneyAccountID = ?, DetailAllow = ?, Comments = ?, where CheckID = ?");
             preparedStatement.setDate(1, checks.getDataPourches());
             preparedStatement.setLong(2, checks.getSumOfCheck());
             preparedStatement.setString(3, checks.getShopName());
@@ -131,11 +129,11 @@ public class ChecksDAOImpl extends DAOImpl implements ChecksDAO {
 
     @Override
     public List<Checks> getAll() throws DBException{
-        List<Checks> checks = new ArrayList<>();
+        List<Checks> checksList = new ArrayList<>();
         Connection connection = null;
 
         try {
-            connection = (Connection) getConnection();
+            connection = getConnection();
             PreparedStatement preparedStatement = (PreparedStatement) connection.prepareStatement("select * from CHECKS");
 
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -149,7 +147,7 @@ public class ChecksDAOImpl extends DAOImpl implements ChecksDAO {
                 checks.setUserMoneyAccountID(resultSet.getInt("UserMoneyAccountID"));
                 checks.setDetailAllow(resultSet.getBoolean("DetailAllow"));
                 checks.setComments(resultSet.getString("Comments"));
-                checks.add(checks);
+                checksList.add(checks);
             }
         } catch (Throwable e) {
             System.out.println("Exception while getting customer list ChecksDAOImpl.getList()");
@@ -158,6 +156,6 @@ public class ChecksDAOImpl extends DAOImpl implements ChecksDAO {
         } finally {
             closeConnection(connection);
         }
-        return checks;
+        return checksList;
     }
 }

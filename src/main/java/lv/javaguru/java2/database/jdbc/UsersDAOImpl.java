@@ -1,17 +1,15 @@
 package lv.javaguru.java2.database.jdbc;
 
-import com.mysql.jdbc.Connection;
 import lv.javaguru.java2.database.DBException;
 import lv.javaguru.java2.database.UsersDAO;
-import lv.javaguru.java2.domain.User;
 import lv.javaguru.java2.domain.users.Users;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
 
 /**
  * Created by admin on 03.05.2017.
@@ -22,7 +20,7 @@ public class UsersDAOImpl extends DAOImpl implements UsersDAO {
         Connection connection = null;
 
         try {
-            connection = (Connection) getConnection();
+            connection = getConnection();
             PreparedStatement preparedStatement =
                     connection.prepareStatement("insert into USERS values (default, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, users.getUserName());
@@ -43,11 +41,11 @@ public class UsersDAOImpl extends DAOImpl implements UsersDAO {
         return users;
     }
 
-    public Optional<Users> getById(int id) throws DBException {
+    public Optional<Users> getById(Integer id) throws DBException {
         Connection connection = null;
 
         try {
-            connection = (Connection) getConnection();
+            connection = getConnection();
             PreparedStatement preparedStatement = connection
                     .prepareStatement("select * from USERS where UserID = ?");
             preparedStatement.setInt(1, id);
@@ -73,7 +71,7 @@ public class UsersDAOImpl extends DAOImpl implements UsersDAO {
         Connection connection = null;
 
         try {
-            connection = (Connection) getConnection();
+            connection = getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement("select * from USERS");
 
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -93,16 +91,16 @@ public class UsersDAOImpl extends DAOImpl implements UsersDAO {
         return usersList;
     }
 
-    public void delete(Long id) throws DBException {
+    public void delete(Integer id) throws DBException {
         Connection connection = null;
         try {
-            connection = (Connection) getConnection();
+            connection =  getConnection();
             PreparedStatement preparedStatement = connection
                     .prepareStatement("delete from USERS where UserID = ?");
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
         } catch (Throwable e) {
-            System.out.println("Exception while execute UserDAOImpl.delete()");
+            System.out.println("Exception while execute UsersDAOImpl.delete()");
             e.printStackTrace();
             throw new DBException(e);
         } finally {
@@ -110,23 +108,21 @@ public class UsersDAOImpl extends DAOImpl implements UsersDAO {
         }
     }
 
-    public void update(User user) throws DBException {
-        if (user == null) {
+    public void update(Users users) throws DBException {
+        if (users == null) {
             return;
         }
 
         Connection connection = null;
         try {
-            connection = (Connection) getConnection();
+            connection = getConnection();
             PreparedStatement preparedStatement = connection
-                    .prepareStatement("update USERS set FirstName = ?, LastName = ? " +
-                            "where UserID = ?");
-            preparedStatement.setString(1, user.getFirstName());
-            preparedStatement.setString(2, user.getLastName());
-            preparedStatement.setLong(3, user.getUserId());
+                    .prepareStatement("update USERS set UserName = ?  where UserID = ?");
+            preparedStatement.setString(1, users.getUserName());
+            preparedStatement.setLong(2, users.getUserID());
             preparedStatement.executeUpdate();
         } catch (Throwable e) {
-            System.out.println("Exception while execute UserDAOImpl.update()");
+            System.out.println("Exception while execute UsersDAOImpl.update()");
             e.printStackTrace();
             throw new DBException(e);
         } finally {

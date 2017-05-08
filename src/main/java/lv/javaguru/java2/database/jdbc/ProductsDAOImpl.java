@@ -1,10 +1,9 @@
-package lv.javaguru.java2.database.jdbc;
-
-import com.mysql.jdbc.Connection;
 import lv.javaguru.java2.database.DBException;
 import lv.javaguru.java2.database.ProductsDAO;
+import lv.javaguru.java2.database.jdbc.DAOImpl;
 import lv.javaguru.java2.domain.products.Products;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -14,7 +13,7 @@ import java.util.Optional;
 /**
  * Created by admin on 04.05.2017.
  */
-public class ProductsDAOImpl extends DAOImpl implements ProductsDAO{
+public class ProductsDAOImpl extends DAOImpl implements ProductsDAO {
     public Products save(Products products) throws DBException {
         Connection connection = null;
 

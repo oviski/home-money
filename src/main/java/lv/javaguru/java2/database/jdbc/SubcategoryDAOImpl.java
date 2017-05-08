@@ -1,10 +1,11 @@
 package lv.javaguru.java2.database.jdbc;
 
-import com.mysql.jdbc.Connection;
+
 import lv.javaguru.java2.database.DBException;
 import lv.javaguru.java2.database.SubcategoryDAO;
 import lv.javaguru.java2.domain.subcategory.Subcategory;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -42,11 +43,11 @@ public class SubcategoryDAOImpl extends DAOImpl implements SubcategoryDAO {
         return subcategory;
     }
 
-    public Optional<Subcategory> getById(int id) throws DBException {
+    public Optional<Subcategory> getById(Integer id) throws DBException {
         Connection connection = null;
 
         try {
-            connection = (Connection) getConnection();
+            connection = getConnection();
             PreparedStatement preparedStatement = connection
                     .prepareStatement("select * from SUBCATEGORY where SubcategoryID = ?");
             preparedStatement.setInt(1, id);
@@ -73,7 +74,7 @@ public class SubcategoryDAOImpl extends DAOImpl implements SubcategoryDAO {
         Connection connection = null;
 
         try {
-            connection = (Connection) getConnection();
+            connection = getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement("select * from SUBCATEGORY");
 
             ResultSet resultSet = preparedStatement.executeQuery();

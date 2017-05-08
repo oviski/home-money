@@ -1,13 +1,13 @@
 package lv.javaguru.java2.database.jdbc;
 
-import com.mysql.jdbc.Connection;
-import com.mysql.jdbc.PreparedStatement;
+
 import lv.javaguru.java2.database.DBException;
 import lv.javaguru.java2.database.UsersMoneyAccountDAO;
 import lv.javaguru.java2.domain.usersMoneyAccount.UsersMoneyAccount;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -17,11 +17,11 @@ import java.util.Optional;
  */
 public class UsersMoneyAccountDAOImpl extends DAOImpl implements UsersMoneyAccountDAO {
     @Override
-    public UsersMoneyAccount save(UsersMoneyAccount usersMoneyAccount) throws DBException{
+    public UsersMoneyAccount save(UsersMoneyAccount usersMoneyAccount) throws DBException {
         Connection connection = null;
 
         try {
-            connection = (Connection) getConnection();
+            connection =  getConnection();
             PreparedStatement preparedStatement =
                     connection.prepareStatement("insert into USERSMONEYACCOUNT values(default, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
             preparedStatement.setInt(1, usersMoneyAccount.getUserID());
@@ -44,7 +44,7 @@ public class UsersMoneyAccountDAOImpl extends DAOImpl implements UsersMoneyAccou
     }
 
     @Override
-    public Optional<UsersMoneyAccount> getById(Long id) throws DBException{
+    public Optional<UsersMoneyAccount> getById(Integer id) throws DBException{
         Connection connection = null;
 
         try{
@@ -71,10 +71,10 @@ public class UsersMoneyAccountDAOImpl extends DAOImpl implements UsersMoneyAccou
     }
 
     @Override
-    public void delete(Long id) throws DBException{
+    public void delete(Integer id) throws DBException{
         Connection connection = null;
         try {
-            connection = (Connection) getConnection();
+            connection = getConnection();
             PreparedStatement preparedStatement = connection
                     .prepareStatement("delete from USERSMONEYACCOUNT where UserMoneyAccountID = ?");
             preparedStatement.setInt(1, id);

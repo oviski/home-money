@@ -11,9 +11,9 @@ import java.util.Optional;
 public interface UsersDAO {
     Users save(Users users);
 
-    Optional<Users> getById(Long id);
+    Optional<Users> getById(Integer id);
 
-    void delete(Long id);
+    void delete(Integer id);
 
     void update(Users users);
 

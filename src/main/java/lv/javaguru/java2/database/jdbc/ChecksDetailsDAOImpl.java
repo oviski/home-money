@@ -1,12 +1,12 @@
 package lv.javaguru.java2.database.jdbc;
 
-import com.mysql.jdbc.Connection;
-import com.mysql.jdbc.PreparedStatement;
-import lv.javaguru.java2.database.ChecksDetailDAO;
-import lv.javaguru.java2.database.DBException;
-import lv.javaguru.java2.domain.checks.Check;
-import lv.javaguru.java2.domain.checksDetail.ChecksDetail;
 
+import lv.javaguru.java2.database.ChecksDetailsDAO;
+import lv.javaguru.java2.database.DBException;
+import lv.javaguru.java2.domain.checksDetails.ChecksDetails;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,27 +15,27 @@ import java.util.Optional;
 /**
  * Created by admin on 02.05.2017.
  */
-public class ChecksDetailDAOImpl extends DAOImpl implements ChecksDetailDAO {
+public class ChecksDetailsDAOImpl extends DAOImpl implements ChecksDetailsDAO {
     @Override
-    public ChecksDetail save(ChecksDetail checksDetail) throws DBException {
+    public ChecksDetails save(ChecksDetails checksDetails) throws DBException {
         Connection connection = null;
 
         try {
-            connection = (Connection) getConnection();
+            connection = getConnection();
             PreparedStatement preparedStatement = (PreparedStatement) connection.prepareStatement("insert into CHECKSDETAIL values (default, ?, ?, ?, ?, ?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
-            preparedStatement.setLong(1, checksDetail.getCheckID());
-            preparedStatement.setLong(2, checksDetail.getCheckPositionID());
-            preparedStatement.setInt(3, checksDetail.getCategoryID());
-            preparedStatement.setInt(4, checksDetail.getSubcategoryID());
-            preparedStatement.setLong(5, checksDetail.getProductID());
-            preparedStatement.setLong(6, checksDetail.getSumOfProducts());
-            preparedStatement.setString(7, checksDetail.getPositionDetails());
+            preparedStatement.setLong(1, checksDetails.getCheckID());
+            preparedStatement.setLong(2, checksDetails.getCheckPositionID());
+            preparedStatement.setInt(3, checksDetails.getCategoryID());
+            preparedStatement.setInt(4, checksDetails.getSubcategoryID());
+            preparedStatement.setLong(5, checksDetails.getProductID());
+            preparedStatement.setLong(6, checksDetails.getSumOfProducts());
+            preparedStatement.setString(7, checksDetails.getPositionDetails());
 
             preparedStatement.executeUpdate();
             ResultSet rs = preparedStatement.getGeneratedKeys();
 
             if (rs.next()){
-                checksDetail.setCheckDetailsID(rs.getLong(1));
+                checksDetails.setCheckDetailID(rs.getLong(1));
             }
         } catch (Throwable e) {
             System.out.println("Exception while execute ChecksDetailDAOImpl.save()");
@@ -44,24 +44,24 @@ public class ChecksDetailDAOImpl extends DAOImpl implements ChecksDetailDAO {
         } finally {
             closeConnection(connection);
         }
-        return checksDetail;
+        return checksDetails;
     }
 
     @Override
-    public Optional<ChecksDetail> getById(Long id) throws DBException{
+    public Optional<ChecksDetails> getById(Long id) throws DBException{
         Connection connection = null;
 
         try {
-            connection = (Connection) getConnection();
-            PreparedStatement preparedStatement = (PreparedStatement) connection.prepareStatement("select * from CHECKSDETAILS where ChecksDetailsID = ?");
+            connection = getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("select * from CHECKSDETAILS where ChecksDetailsID = ?");
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
-            ChecksDetail checksDetail = null;
+            ChecksDetails checksDetail = null;
             if (resultSet.next()) {
-                checksDetail = new ChecksDetail();
-                checksDetail.setCheckDetailsID(resultSet.getLong("checksDetailsID"));
+                checksDetail = new ChecksDetails();
+                checksDetail.setCheckDetailID(resultSet.getLong("checksDetailsID"));
                 checksDetail.setCheckID(resultSet.getLong("checkID"));
-                checksDetail.setCheckPositionID(resultSet.getLong("checkPositionID"));
+                checksDetail.setCheckPositionID(resultSet.getInt("checkPositionID"));
                 checksDetail.setCategoryID(resultSet.getInt("categoryID"));
                 checksDetail.setSubcategoryID(resultSet.getInt("subcategoryID"));
                 checksDetail.setProductID(resultSet.getLong("productID"));
@@ -70,7 +70,7 @@ public class ChecksDetailDAOImpl extends DAOImpl implements ChecksDetailDAO {
             }
             return Optional.ofNullable(checksDetail);
         } catch (Throwable e) {
-            System.out.println("Exception while execute ChecksDetailDAOImpl.getById()");
+            System.out.println("Exception while execute ChecksDetailsDAOImpl.getById()");
             e.printStackTrace();
             throw new DBException(e);
         } finally {
@@ -82,8 +82,8 @@ public class ChecksDetailDAOImpl extends DAOImpl implements ChecksDetailDAO {
     public void delete(Long id) throws DBException{
         Connection connection = null;
         try {
-            connection = (Connection) getConnection();
-            PreparedStatement preparedStatement = (PreparedStatement) connection
+            connection = getConnection();
+            PreparedStatement preparedStatement = connection
                     .prepareStatement("delete from CHECKSDETAIL where ChecksDetailID = ?");
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
@@ -98,18 +98,16 @@ public class ChecksDetailDAOImpl extends DAOImpl implements ChecksDetailDAO {
     }
 
     @Override
-    public void update(ChecksDetail checksDetail) {
+    public void update(ChecksDetails checksDetail) {
         if (checksDetail == null) {
             return;
         }
 
         Connection connection = null;
         try {
-            connection = (Connection) getConnection();
-            java.sql.PreparedStatement preparedStatement = connection
-                    .prepareStatement("update CHECKSDETAIL set CheckID = ?, CheckPositionID = ?, " +
-                            "CategoryID = ?, SubcategoryID = ?, ProductID = ?, SumOfProduct = ?, positionDetails = ?, " +
-                            "where ChecksDetailsID = ?");
+            connection = getConnection();
+            PreparedStatement preparedStatement = connection
+                    .prepareStatement("update CHECKSDETAIL set CheckID = ?, CheckPositionID = ?, CategoryID = ?, SubcategoryID = ?, ProductID = ?, SumOfProduct = ?, positionDetails = ?, where ChecksDetailsID = ?");
             preparedStatement.setLong(1, checksDetail.getCheckID());
             preparedStatement.setLong(2, checksDetail.getCheckPositionID());
             preparedStatement.setInt(3, checksDetail.getCategoryID());
@@ -117,10 +115,10 @@ public class ChecksDetailDAOImpl extends DAOImpl implements ChecksDetailDAO {
             preparedStatement.setLong(5, checksDetail.getProductID());
             preparedStatement.setLong(6, checksDetail.getSumOfProducts());
             preparedStatement.setString(7, checksDetail.getPositionDetails());
-            preparedStatement.setLong(8, checksDetail.getCheckDetailsID());
+            preparedStatement.setLong(8, checksDetail.getCheckDetailID());
             preparedStatement.executeUpdate();
         } catch (Throwable e) {
-            System.out.println("Exception while execute ChecksDetailDAOImpl.update()");
+            System.out.println("Exception while execute ChecksDetailsDAOImpl.update()");
             e.printStackTrace();
             throw new DBException(e);
         } finally {
@@ -130,27 +128,27 @@ public class ChecksDetailDAOImpl extends DAOImpl implements ChecksDetailDAO {
     }
 
     @Override
-    public List<ChecksDetail> getAll() throws DBException{
-        List<ChecksDetail> checksDetails = new ArrayList<ChecksDetail>();
+    public List<ChecksDetails> getAll() throws DBException{
+        List<ChecksDetails> checksDetailsList = new ArrayList<ChecksDetails>();
         Connection connection = null;
 
         try {
-            connection = (Connection) getConnection();
-            PreparedStatement preparedStatement = (PreparedStatement) connection.prepareStatement("select * from CHECKDETAILS");
+            connection = getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("select * from CHECKDETAILS");
 
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                ChecksDetail checksDetail = new ChecksDetail();
-                checksDetail.setCheckDetailsID(resultSet.getLong("checkDetailsID"));
-                checksDetail.setCheckID(resultSet.getLong("CheckID"));
-                checksDetail.setCheckPositionID(resultSet.getLong("CheckPositionID"));
-                checksDetail.setCategoryID(resultSet.getInt("CategoryID"));
-                checksDetail.setSubcategoryID(resultSet.getInt("SubcategoryID"));
-                checksDetail.setProductID(resultSet.getLong("ProductID"));
-                checksDetail.setSumOfProducts(resultSet.getLong("SumOfProducts"));
-                checksDetail.setPositionDetails(resultSet.getString("PositionDetails"));
+                ChecksDetails checksDetails = new ChecksDetails();
+                checksDetails.setCheckDetailID(resultSet.getLong("checkDetailsID"));
+                checksDetails.setCheckID(resultSet.getLong("CheckID"));
+                checksDetails.setCheckPositionID(resultSet.getInt("CheckPositionID"));
+                checksDetails.setCategoryID(resultSet.getInt("CategoryID"));
+                checksDetails.setSubcategoryID(resultSet.getInt("SubcategoryID"));
+                checksDetails.setProductID(resultSet.getLong("ProductID"));
+                checksDetails.setSumOfProducts(resultSet.getLong("SumOfProducts"));
+                checksDetails.setPositionDetails(resultSet.getString("PositionDetails"));
 
-                checksDetails.add(checksDetail);
+                checksDetailsList.add(checksDetails);
             }
         } catch (Throwable e) {
             System.out.println("Exception while getting customer list ChecksDetailDAOImpl.getList()");
@@ -159,6 +157,6 @@ public class ChecksDetailDAOImpl extends DAOImpl implements ChecksDetailDAO {
         } finally {
             closeConnection(connection);
         }
-        return checksDetails;
+        return checksDetailsList;
     }
 }
