@@ -4,13 +4,13 @@ package lv.javaguru.java2.domain.users;
 /**
  * Created by admin on 24.04.2017.
  */
-public class UserBuilder {
+public class UsersBuilder {
     private String userName;
 
-    private UserBuilder() {}
+    private UsersBuilder() {}
 
-    public static UserBuilder createUser() {
-        return new UserBuilder();
+    public static UsersBuilder createUser() {
+        return new UsersBuilder();
     }
 
     public Users build() {
@@ -19,7 +19,7 @@ public class UserBuilder {
         return users;
     }
 
-    public UserBuilder withUserName(String userName) {
+    public UsersBuilder withUserName(String userName) {
         this.userName = userName;
         return this;
     }

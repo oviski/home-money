@@ -9,7 +9,7 @@ public class UsersMoneyAccountBuilder {
 
     private UsersMoneyAccountBuilder() {}
 
-    public static UsersMoneyAccountBuilder createUser() {
+    public static UsersMoneyAccountBuilder createMoneyAccount() {
         return new UsersMoneyAccountBuilder();
     }
 

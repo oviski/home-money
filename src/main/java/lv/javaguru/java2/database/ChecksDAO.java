@@ -1,6 +1,5 @@
 package lv.javaguru.java2.database;
 
-import lv.javaguru.java2.domain.checks.Check;
 import lv.javaguru.java2.domain.checks.Checks;
 
 import java.sql.SQLException;
