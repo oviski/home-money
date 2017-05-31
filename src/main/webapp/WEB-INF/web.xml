@@ -45,5 +45,35 @@
         <url-pattern>/jsp</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>NewChecksServlet</servlet-name>
+        <servlet-class>lv.javaguru.java2.servlet.NewChecksServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>NewChecksServlet</servlet-name>
+        <url-pattern>/newCheck</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AllChecksListServlet</servlet-name>
+        <servlet-class>lv.javaguru.java2.servlet.AllChecksListServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>AllChecksListServlet</servlet-name>
+        <url-pattern>/allChecksList</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>CreateCheckServlet</servlet-name>
+        <servlet-class>lv.javaguru.java2.servlet.CreateCheckServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>CreateCheckServlet</servlet-name>
+        <url-pattern>/createCheck</url-pattern>
+    </servlet-mapping>
 
 </web-app>

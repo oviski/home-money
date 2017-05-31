@@ -1,6 +1,7 @@
 package lv.javaguru.java2.domain.checks;
 
-import java.sql.Date;
+
+import java.util.Date;
 
 /**
  * Created by admin on 24.04.2017.

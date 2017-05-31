@@ -23,7 +23,7 @@ public class ChecksDAOImpl extends DAOImpl implements ChecksDAO {
         try {
             connection = getConnection();
             PreparedStatement preparedStatement = (PreparedStatement) connection.prepareStatement("insert into CHECKS values (default, ?, ?, ?, ?, ?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
-            preparedStatement.setDate(1, checks.getDataPourches());
+            preparedStatement.setDate(1, new java.sql.Date(checks.getDataPourches().getTime()));
             preparedStatement.setLong(2, checks.getSumOfCheck());
             preparedStatement.setString(3, checks.getShopName());
             preparedStatement.setInt(4, checks.getUserID());
@@ -107,8 +107,8 @@ public class ChecksDAOImpl extends DAOImpl implements ChecksDAO {
         try {
             connection = getConnection();
             java.sql.PreparedStatement preparedStatement = connection
-                    .prepareStatement("update CHECKS set DatePourches = ?, SumOfCheck = ?, ShopName = ?, UserID = ?, UserMoneyAccountID = ?, DetailAllow = ?, Comments = ?, where CheckID = ?");
-            preparedStatement.setDate(1, checks.getDataPourches());
+                    .prepareStatement("update CHECKS set DatePourches = ?, SumOfCheck = ?, ShopName = ?, UserID = ?, UserMoneyAccountID = ?, DetailAllow = ?, Comments = ? where CheckID = ?");
+            preparedStatement.setDate(1, new java.sql.Date(checks.getDataPourches().getTime()));
             preparedStatement.setLong(2, checks.getSumOfCheck());
             preparedStatement.setString(3, checks.getShopName());
             preparedStatement.setInt(4, checks.getUserID());
@@ -143,9 +143,9 @@ public class ChecksDAOImpl extends DAOImpl implements ChecksDAO {
                 checks.setDataPourches(resultSet.getDate("DatePourches"));
                 checks.setSumOfCheck(resultSet.getLong("SumOfCheck"));
                 checks.setShopName(resultSet.getString("ShopName"));
-                checks.setUserID(resultSet.getInt("UserID"));
+                checks.setUserID(resultSet.getInt("WhoPayID"));
                 checks.setUserMoneyAccountID(resultSet.getInt("UserMoneyAccountID"));
-                checks.setDetailAllow(resultSet.getBoolean("DetailAllow"));
+                checks.setDetailAllow(resultSet.getBoolean("DetailsAllow"));
                 checks.setComments(resultSet.getString("Comments"));
                 checksList.add(checks);
             }

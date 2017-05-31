@@ -5,8 +5,14 @@ import lv.javaguru.java2.database.ChecksDAO;
 import lv.javaguru.java2.database.jdbc.ChecksDAOImpl;
 import lv.javaguru.java2.domain.checks.Checks;
 
-import java.sql.Date;
+
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+import java.util.Map;
 
 import static lv.javaguru.java2.domain.checks.ChecksBuilder.createCheck;
 
@@ -28,6 +34,21 @@ public class ChecksFactoryImpl implements ChecksFactory {
                 .withComments(comments).build();
 
         return checksDAO.save(checks);
+    }
+
+    @Override
+    public Checks createFromMap(Map<String, String[]> params) throws ParseException, SQLException {
+        checksValidator.validateMaps(params);
+        DateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+        return create(
+                format.parse(params.get("dataPourches")[0]),
+                Long.parseLong(params.get("sumOfCheck")[0]),
+                params.get("shopName")[0],
+                Integer.parseInt(params.get("userID")[0]),
+                Integer.parseInt(params.get("userMoneyAccountID")[0]),
+                Boolean.parseBoolean(params.get("detailsAllow")[0]),
+                params.get("comments")[0]
+                );
     }
 }
 

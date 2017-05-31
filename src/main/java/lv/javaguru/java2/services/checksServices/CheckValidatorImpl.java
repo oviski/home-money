@@ -1,6 +1,7 @@
 package lv.javaguru.java2.services.checksServices;
 
 import java.util.Date;
+import java.util.Map;
 
 /**
  * Created by admin on 24.05.2017.
@@ -15,6 +16,11 @@ public class CheckValidatorImpl implements ChecksValidator {
         validateUserMoneyAccountID(userMoneyAccountID);
         validateDetailAllow(detailAllow);
         validateComments(comments);
+    }
+
+    @Override
+    public void validateMaps(Map<String, String[]> params) {
+
     }
 
     private void validateDataPourches(Date dataPourches){

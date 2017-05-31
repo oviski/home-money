@@ -50,7 +50,7 @@ public class UsersMoneyAccountDAOImpl extends DAOImpl implements UsersMoneyAccou
         try{
             connection= getConnection();
             PreparedStatement preparedStatement = connection
-                    .prepareStatement("select * from USERSMONEYACCOUNT where UsersMoneyAccountID = ?");
+                    .prepareStatement("select * from USERSMONEYACCOUNT where UserMoneyAccountID = ?");
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             UsersMoneyAccount usersMoneyAccount = null;
