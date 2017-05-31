@@ -1,6 +1,6 @@
 package lv.javaguru.java2.domain.checks;
 
-import java.sql.Date;
+import java.util.Date;
 
 /**
  * Created by admin on 20.04.2017.
@@ -52,7 +52,7 @@ public class Checks {
     }
 
     public void setUserID(Integer userID) {
-        this.userID = this.userID;
+        this.userID = userID;
     }
 
     public Integer getUserMoneyAccountID() {
