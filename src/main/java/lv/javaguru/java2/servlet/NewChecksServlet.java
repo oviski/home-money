@@ -11,6 +11,10 @@ import lv.javaguru.java2.domain.users.Users;
 import lv.javaguru.java2.domain.usersMoneyAccount.UsersMoneyAccount;
 import lv.javaguru.java2.services.checksServices.ChecksFactory;
 import lv.javaguru.java2.services.checksServices.ChecksFactoryImpl;
+import lv.javaguru.java2.services.userServices.UsersSearch;
+import lv.javaguru.java2.services.userServices.UsersSearchImpl;
+import lv.javaguru.java2.services.usersMoneyAccountServices.UsersMoneyAccountSearch;
+import lv.javaguru.java2.services.usersMoneyAccountServices.UsersMoneyAccountSearchImpl;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -24,6 +28,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by admin on 28.05.2017.
@@ -37,17 +42,21 @@ public class NewChecksServlet extends HttpServlet {
         response.setContentType("text/html");
 
         String varTextB = "";
-        UsersDAOImpl usersDAO = new UsersDAOImpl();
-        List<Users> usersList = usersDAO.getAll();
-        for (Users users:usersList){
+        UsersSearch usersSearch = new UsersSearchImpl();
+        Optional<List<Users>> usersOptional = usersSearch.getAllUsers();
+        /*UsersDAOImpl usersDAO = new UsersDAOImpl();
+        List<Users> usersList = usersDAO.getAll();*/
+        for (Users users:usersOptional.get()){
             varTextB += "<option value = " + users.getUserID() + ">" + users.getUserName() + "</option>";
         }
         request.setAttribute("jspUserList", varTextB);
 
         String varTextA = "";
-        UsersMoneyAccountDAOImpl usersMoneyAccountDAO = new UsersMoneyAccountDAOImpl();
-        List<UsersMoneyAccount> usersMoneyAccountList =usersMoneyAccountDAO.getAll();
-        for (UsersMoneyAccount usersMoneyAccount:usersMoneyAccountList){
+        UsersMoneyAccountSearch usersMoneyAccountSearch = new UsersMoneyAccountSearchImpl();
+        Optional<List<UsersMoneyAccount>> usersMoneyAccountsOptional = usersMoneyAccountSearch.getAllUsersMoneyAccounts();
+        /*UsersMoneyAccountDAOImpl usersMoneyAccountDAO = new UsersMoneyAccountDAOImpl();
+        List<UsersMoneyAccount> usersMoneyAccountList =usersMoneyAccountDAO.getAll();*/
+        for (UsersMoneyAccount usersMoneyAccount:usersMoneyAccountsOptional.get()){
             varTextA += "<option value = " + usersMoneyAccount.getUserMoneyAccountID() + ">" + usersMoneyAccount.getMoneyAccountName() + "</option>";
         }
         request.setAttribute("jspUsersMoneyAccountList", varTextA);
@@ -61,7 +70,7 @@ public class NewChecksServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)  throws ServletException, IOException{
         ChecksFactory checksFactory = new ChecksFactoryImpl();
-        ChecksDAO checksDAO = new ChecksDAOImpl();
+        //ChecksDAO checksDAO = new ChecksDAOImpl();
         try {
 
             checksFactory.createFromMap(req.getParameterMap());

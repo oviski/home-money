@@ -18,5 +18,4 @@ public interface UsersDAO {
     void update(Users users);
 
     List<Users> getAll();
-
 }

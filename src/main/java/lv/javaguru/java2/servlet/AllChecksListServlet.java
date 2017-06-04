@@ -7,6 +7,12 @@ import lv.javaguru.java2.database.jdbc.UsersMoneyAccountDAOImpl;
 import lv.javaguru.java2.domain.checks.Checks;
 import lv.javaguru.java2.domain.users.Users;
 import lv.javaguru.java2.domain.usersMoneyAccount.UsersMoneyAccount;
+import lv.javaguru.java2.services.checksServices.ChecksSearch;
+import lv.javaguru.java2.services.checksServices.ChecksSearchImpl;
+import lv.javaguru.java2.services.userServices.UsersSearch;
+import lv.javaguru.java2.services.userServices.UsersSearchImpl;
+import lv.javaguru.java2.services.usersMoneyAccountServices.UsersMoneyAccountSearch;
+import lv.javaguru.java2.services.usersMoneyAccountServices.UsersMoneyAccountSearchImpl;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -15,6 +21,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,22 +34,33 @@ public class AllChecksListServlet extends HttpServlet {
         resp.setContentType("text/html");
 
         String varTextC= "";
-        ChecksDAOImpl checksDAO = new ChecksDAOImpl();
+        ChecksSearch checksSearch = new ChecksSearchImpl();
+        UsersSearch usersSearch = new UsersSearchImpl();
+        UsersMoneyAccountSearch usersMoneyAccountSearch = new UsersMoneyAccountSearchImpl();
+        Optional<List<Checks>> checksOptional = checksSearch.getAllChecks();
+        List<Checks> checksList = new ArrayList<>();
+        if (checksOptional == null){
+         varTextC = "<tr><td>" + "Checks not found" + "</td></tr>";
+
+        } else { checksList = checksOptional.get();
+        /*ChecksDAOImpl checksDAO = new ChecksDAOImpl();
         UsersDAOImpl usersDAO = new UsersDAOImpl();
         UsersMoneyAccountDAO usersMoneyAccountDAO = new UsersMoneyAccountDAOImpl();
-        List<Checks> checksList = checksDAO.getAll();
+        List<Checks> checksList = checksDAO.getAll();*/
         for (Checks checks:checksList){
-            Optional<Users> users = usersDAO.getById(checks.getUserID());
-            Optional<UsersMoneyAccount> usersMoneyAccount = usersMoneyAccountDAO.getById(checks.getUserMoneyAccountID());
+            Optional<Users> usersOptional = usersSearch.getUsersByUserID(checks.getUserID());
+            Optional<UsersMoneyAccount> usersMoneyAccountOptional = usersMoneyAccountSearch.getByUsersMoneyAccountID(checks.getUserMoneyAccountID());
             varTextC += "<tr><td>"
                     + checks.getCheckID() + "</td><td>"
                     + checks.getDataPourches() + "</td><td>"
                     + checks.getSumOfCheck() + "</td><td>"
                     + checks.getShopName() + "</td><td>"
-                    + (users.isPresent() ? users.get().getUserName(): "User not present") + "</td><td>"
-                    + (usersMoneyAccount.isPresent()? usersMoneyAccount.get().getMoneyAccountName() : "User Money Account not present") + "</td><td>"
+                    + (usersOptional.isPresent() ? usersOptional.get().getUserName(): "User not present") + "</td><td>"
+                    + (usersMoneyAccountOptional.isPresent()? usersMoneyAccountOptional.get().getMoneyAccountName() : "Unknown account") + "</td><td>"
+                    //+ (usersMoneyAccount.isPresent()? usersMoneyAccount.get().getMoneyAccountName() : "User Money Account not present") + "</td><td>"
                     + (checks.getDetailAllow()? "Detail is present" : "detail is empty")   + "</td><td>"
                     + checks.getComments() + "</td></tr>";
+        }
         }
         req.setAttribute("jspChecksList", varTextC);
 

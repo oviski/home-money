@@ -19,4 +19,6 @@ public interface UsersMoneyAccountDAO {
 
     List<UsersMoneyAccount> getAll();
 
+    Optional<List<UsersMoneyAccount>> getByUsersID(Integer usersID);
+
 }

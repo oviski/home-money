@@ -65,15 +65,4 @@
         <url-pattern>/allChecksList</url-pattern>
     </servlet-mapping>
 
-
-    <servlet>
-        <servlet-name>CreateCheckServlet</servlet-name>
-        <servlet-class>lv.javaguru.java2.servlet.CreateCheckServlet</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>CreateCheckServlet</servlet-name>
-        <url-pattern>/createCheck</url-pattern>
-    </servlet-mapping>
-
 </web-app>

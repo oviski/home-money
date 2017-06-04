@@ -141,4 +141,32 @@ public class UsersMoneyAccountDAOImpl extends DAOImpl implements UsersMoneyAccou
         }
         return usersMoneyAccounts;
     }
+
+    @Override
+    public Optional<List<UsersMoneyAccount>> getByUsersID(Integer usersID) {
+        List<UsersMoneyAccount> usersMoneyAccounts = new ArrayList<UsersMoneyAccount>();
+        Connection connection = null;
+
+        try {
+            connection = getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("select * from USERSMONEYACCOUNT where usersID=?");
+            preparedStatement.setInt(1, usersID);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                UsersMoneyAccount usersMoneyAccount = new UsersMoneyAccount();
+                usersMoneyAccount.setUserMoneyAccountID(resultSet.getInt("UserMoneyAccountID"));
+                usersMoneyAccount.setUserID(resultSet.getInt("UserID"));
+                usersMoneyAccount.setMoneyAccountName(resultSet.getString("MoneyAccountName"));
+                usersMoneyAccounts.add(usersMoneyAccount);
+            }
+        } catch (Throwable e) {
+            System.out.println("Exception while getting customer list UsersMoneyAccountNameDAOImpl");
+            e.printStackTrace();
+            throw new DBException(e);
+        } finally {
+            closeConnection(connection);
+        }
+        return Optional.of(usersMoneyAccounts);
+    }
 }
