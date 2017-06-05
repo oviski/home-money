@@ -1,9 +1,5 @@
-package lv.javaguru.java2.servlet;
+package lv.javaguru.java2.servlet.mvc;
 
-import lv.javaguru.java2.database.UsersMoneyAccountDAO;
-import lv.javaguru.java2.database.jdbc.ChecksDAOImpl;
-import lv.javaguru.java2.database.jdbc.UsersDAOImpl;
-import lv.javaguru.java2.database.jdbc.UsersMoneyAccountDAOImpl;
 import lv.javaguru.java2.domain.checks.Checks;
 import lv.javaguru.java2.domain.users.Users;
 import lv.javaguru.java2.domain.usersMoneyAccount.UsersMoneyAccount;
@@ -14,25 +10,18 @@ import lv.javaguru.java2.services.userServices.UsersSearchImpl;
 import lv.javaguru.java2.services.usersMoneyAccountServices.UsersMoneyAccountSearch;
 import lv.javaguru.java2.services.usersMoneyAccountServices.UsersMoneyAccountSearchImpl;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 /**
- * Created by admin on 31.05.2017.
+ * Created by admin on 04.06.2017.
  */
-public class AllChecksListServlet extends HttpServlet {
+public class AllChecksListController implements MVCController {
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("text/html");
+    public MVCModel processRequestGet(HttpServletRequest request, HttpServletResponse response) {
 
+        Map<String, String> params = new HashMap<>();
         String varTextC= "";
         ChecksSearch checksSearch = new ChecksSearchImpl();
         UsersSearch usersSearch = new UsersSearchImpl();
@@ -40,7 +29,7 @@ public class AllChecksListServlet extends HttpServlet {
         Optional<List<Checks>> checksOptional = checksSearch.getAllChecks();
         List<Checks> checksList = new ArrayList<>();
         if (checksOptional == null){
-         varTextC = "<tr><td>" + "Checks not found" + "</td></tr>";
+            varTextC = "<tr><td>" + "Checks not found" + "</td></tr>";
         } else { checksList = checksOptional.get();
 
             for (Checks checks:checksList){
@@ -58,12 +47,14 @@ public class AllChecksListServlet extends HttpServlet {
                         + checks.getComments() + "</td></tr>";
             }
         }
-        req.setAttribute("jspChecksList", varTextC);
+        params.put("jspChecksList", varTextC);
 
-        ServletContext servletContext = getServletContext();
-        RequestDispatcher requestDispatcher = servletContext.getRequestDispatcher("/allCheckList.jsp");
+        MVCModel model = new MVCModel("/allCheckList.jsp", params);
+        return model;
+    }
 
-        requestDispatcher.forward(req, resp);
-
+    @Override
+    public MVCModel processRequestPost(HttpServletRequest request, HttpServletResponse response) {
+        return processRequestGet(request, response);
     }
 }

@@ -1,12 +1,5 @@
-package lv.javaguru.java2.servlet;
+package lv.javaguru.java2.servlet.mvc;
 
-
-import lv.javaguru.java2.database.ChecksDAO;
-import lv.javaguru.java2.database.UsersMoneyAccountDAO;
-import lv.javaguru.java2.database.jdbc.ChecksDAOImpl;
-import lv.javaguru.java2.database.jdbc.UsersDAOImpl;
-import lv.javaguru.java2.database.jdbc.UsersMoneyAccountDAOImpl;
-import lv.javaguru.java2.domain.checks.Checks;
 import lv.javaguru.java2.domain.users.Users;
 import lv.javaguru.java2.domain.usersMoneyAccount.UsersMoneyAccount;
 import lv.javaguru.java2.services.checksServices.ChecksFactory;
@@ -16,31 +9,25 @@ import lv.javaguru.java2.services.userServices.UsersSearchImpl;
 import lv.javaguru.java2.services.usersMoneyAccountServices.UsersMoneyAccountSearch;
 import lv.javaguru.java2.services.usersMoneyAccountServices.UsersMoneyAccountSearchImpl;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.text.ParseException;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
- * Created by admin on 28.05.2017.
+ * Created by admin on 05.06.2017.
  */
-public class NewChecksServlet extends HttpServlet {
-
+public class NewChecksController implements MVCController {
     @Override
-    protected void doGet(HttpServletRequest request,
-                         HttpServletResponse response) throws ServletException, IOException {
-
+    public MVCModel processRequestGet(HttpServletRequest request, HttpServletResponse response) {
         response.setContentType("text/html");
 
+        Map<String, String> params = new HashMap<>();
         String varTextB = "";
         UsersSearch usersSearch = new UsersSearchImpl();
         Optional<List<Users>> usersOptional = usersSearch.getAllUsers();
@@ -48,7 +35,7 @@ public class NewChecksServlet extends HttpServlet {
         for (Users users:usersOptional.get()){
             varTextB += "<option value = " + users.getUserID() + ">" + users.getUserName() + "</option>";
         }
-        request.setAttribute("jspUserList", varTextB);
+        params.put("jspUserList", varTextB);
 
         String varTextA = "";
         UsersMoneyAccountSearch usersMoneyAccountSearch = new UsersMoneyAccountSearchImpl();
@@ -57,43 +44,41 @@ public class NewChecksServlet extends HttpServlet {
         for (UsersMoneyAccount usersMoneyAccount:usersMoneyAccountsOptional.get()){
             varTextA += "<option value = " + usersMoneyAccount.getUserMoneyAccountID() + ">" + usersMoneyAccount.getMoneyAccountName() + "</option>";
         }
-        request.setAttribute("jspUsersMoneyAccountList", varTextA);
+        params.put("jspUsersMoneyAccountList", varTextA);
 
-        ServletContext servletContext = getServletContext();
-        RequestDispatcher requestDispatcher = servletContext.getRequestDispatcher("/newCheck.jsp");
+        Map<String, String[]> requestMap = request.getParameterMap();
+        for (String key: requestMap.keySet()) {
+            params.put(key, requestMap.get(key)[0]);
+        }
 
-        requestDispatcher.forward(request, response);
+        MVCModel model = new MVCModel("/newCheck.jsp", params);
+        return model;
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp)  throws ServletException, IOException{
+    public MVCModel processRequestPost(HttpServletRequest request, HttpServletResponse response) {
         ChecksFactory checksFactory = new ChecksFactoryImpl();
+        Map<String, String> params = new HashMap<>();
 
         try {
 
-            checksFactory.createFromMap(req.getParameterMap());
+            checksFactory.createFromMap(request.getParameterMap());
 
 
         } catch (ParseException e) {
             e.printStackTrace();
             String error = "<textarea>"+ e.getMessage() +"</textarea>";
-            req.setAttribute("javaError",error);
-            doGet(req,resp);
+            request.setAttribute("javaError",error);
+            return processRequestGet(request, response);
         } catch (SQLException e) {
             e.printStackTrace();
             String error = "<textarea>"+ e.getMessage() +"</textarea>";
-            req.setAttribute("javaError",error);
-            doGet(req,resp);
+            request.setAttribute("javaError",error);
+            return processRequestGet(request, response);
         }
 
         // vse horosho
-        ServletContext servletContext = getServletContext();
-        RequestDispatcher requestDispatcher = servletContext.getRequestDispatcher("/addCheckOk.jsp");
+        return new MVCModel("/addCheckOk.jsp");
 
-        requestDispatcher.forward(req, resp);
-
-    }
-
-
-
+        }
 }
