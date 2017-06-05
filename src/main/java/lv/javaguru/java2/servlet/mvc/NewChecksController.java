@@ -53,6 +53,7 @@ public class NewChecksController implements MVCController {
 
         MVCModel model = new MVCModel("/newCheck.jsp", params);
         return model;
+
     }
 
     @Override
