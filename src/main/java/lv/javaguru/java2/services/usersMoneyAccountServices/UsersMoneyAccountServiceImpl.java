@@ -8,15 +8,20 @@ import lv.javaguru.java2.domain.users.Users;
 import lv.javaguru.java2.domain.usersMoneyAccount.UsersMoneyAccount;
 import lv.javaguru.java2.services.userServices.UsersValidator;
 import lv.javaguru.java2.services.userServices.UsersValidatorImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
 /**
  * Created by admin on 16.05.2017.
  */
+@Component
 public class UsersMoneyAccountServiceImpl implements UsersMoneyAccountService{
-    private UsersMoneyAccountDAO usersMoneyAccountDAO = new UsersMoneyAccountDAOImpl();
-    private UsersMoneyAccountValidator usersMoneyAccountValidator = new UsersMoneyAccountValidatorImpl();
+    @Autowired
+    private UsersMoneyAccountDAO usersMoneyAccountDAO; // = new UsersMoneyAccountDAOImpl();
+    @Autowired
+    private UsersMoneyAccountValidator usersMoneyAccountValidator; // = new UsersMoneyAccountValidatorImpl();
 
 
     @Override

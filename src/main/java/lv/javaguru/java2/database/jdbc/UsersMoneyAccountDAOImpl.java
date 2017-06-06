@@ -4,6 +4,7 @@ package lv.javaguru.java2.database.jdbc;
 import lv.javaguru.java2.database.DBException;
 import lv.javaguru.java2.database.UsersMoneyAccountDAO;
 import lv.javaguru.java2.domain.usersMoneyAccount.UsersMoneyAccount;
+import org.springframework.stereotype.Component;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,6 +16,7 @@ import java.util.Optional;
 /**
  * Created by admin on 04.05.2017.
  */
+@Component
 public class UsersMoneyAccountDAOImpl extends DAOImpl implements UsersMoneyAccountDAO {
     @Override
     public UsersMoneyAccount save(UsersMoneyAccount usersMoneyAccount) throws DBException {

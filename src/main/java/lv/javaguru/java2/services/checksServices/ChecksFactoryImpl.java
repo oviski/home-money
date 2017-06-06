@@ -4,6 +4,8 @@ package lv.javaguru.java2.services.checksServices;
 import lv.javaguru.java2.database.ChecksDAO;
 import lv.javaguru.java2.database.jdbc.ChecksDAOImpl;
 import lv.javaguru.java2.domain.checks.Checks;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 
 import java.sql.SQLException;
@@ -16,9 +18,12 @@ import java.util.Map;
 
 import static lv.javaguru.java2.domain.checks.ChecksBuilder.createCheck;
 
+@Component
 public class ChecksFactoryImpl implements ChecksFactory {
-    private  ChecksValidator checksValidator = new CheckValidatorImpl();
-    private ChecksDAO checksDAO = new ChecksDAOImpl();
+    @Autowired
+    private  ChecksValidator checksValidator; // = new CheckValidatorImpl();
+    @Autowired
+    private ChecksDAO checksDAO; // = new ChecksDAOImpl();
 
     @Override
     public Checks create(Date dataPourches, Long sumOfCheck, String shopName, Integer userID, Integer userMoneyAccountID, Boolean detailAllow, String comments) throws SQLException {

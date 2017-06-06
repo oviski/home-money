@@ -6,6 +6,8 @@ import lv.javaguru.java2.database.jdbc.UsersDAOImpl;
 import lv.javaguru.java2.database.jdbc.UsersMoneyAccountDAOImpl;
 import lv.javaguru.java2.domain.users.Users;
 import lv.javaguru.java2.domain.usersMoneyAccount.UsersMoneyAccount;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import static lv.javaguru.java2.domain.users.UsersBuilder.createUser;
 import static lv.javaguru.java2.domain.usersMoneyAccount.UsersMoneyAccountBuilder.createMoneyAccount;
@@ -13,9 +15,12 @@ import static lv.javaguru.java2.domain.usersMoneyAccount.UsersMoneyAccountBuilde
 /**
  * Created by admin on 16.05.2017.
  */
+@Component
 public class UsersMoneyAccountFactoryImpl implements UsersMoneyAccountFactory {
-    private UsersMoneyAccountValidator usersMoneyAccountValidator = new UsersMoneyAccountValidatorImpl();
-    private UsersMoneyAccountDAO usersMoneyAccountDAO = new UsersMoneyAccountDAOImpl();
+    @Autowired
+    private UsersMoneyAccountValidator usersMoneyAccountValidator;// = new UsersMoneyAccountValidatorImpl();
+    @Autowired
+    private UsersMoneyAccountDAO usersMoneyAccountDAO; // = new UsersMoneyAccountDAOImpl();
 
 
     @Override

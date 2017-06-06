@@ -3,15 +3,20 @@ package lv.javaguru.java2.services.userServices;
 import lv.javaguru.java2.database.UsersDAO;
 import lv.javaguru.java2.database.jdbc.UsersDAOImpl;
 import lv.javaguru.java2.domain.users.Users;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import static lv.javaguru.java2.domain.users.UsersBuilder.createUser;
 
 /**
  * Created by admin on 16.05.2017.
  */
+@Component
 public class UsersFactoryImpl implements UsersFactory {
-    private UsersValidator usersValidator = new UsersValidatorImpl();
-    private UsersDAO usersDAO = new UsersDAOImpl();
+    @Autowired
+    private UsersValidator usersValidator; // = new UsersValidatorImpl();
+    @Autowired
+    private UsersDAO usersDAO; // = new UsersDAOImpl();
 
     @Override
     public Users create(String usersName) {

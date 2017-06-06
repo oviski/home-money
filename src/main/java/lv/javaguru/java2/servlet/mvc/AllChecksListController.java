@@ -4,11 +4,13 @@ import lv.javaguru.java2.domain.checks.Checks;
 import lv.javaguru.java2.domain.users.Users;
 import lv.javaguru.java2.domain.usersMoneyAccount.UsersMoneyAccount;
 import lv.javaguru.java2.services.checksServices.ChecksSearch;
-import lv.javaguru.java2.services.checksServices.ChecksSearchImpl;
+//import lv.javaguru.java2.services.checksServices.ChecksSearchImpl;
 import lv.javaguru.java2.services.userServices.UsersSearch;
-import lv.javaguru.java2.services.userServices.UsersSearchImpl;
+//import lv.javaguru.java2.services.userServices.UsersSearchImpl;
 import lv.javaguru.java2.services.usersMoneyAccountServices.UsersMoneyAccountSearch;
-import lv.javaguru.java2.services.usersMoneyAccountServices.UsersMoneyAccountSearchImpl;
+//import lv.javaguru.java2.services.usersMoneyAccountServices.UsersMoneyAccountSearchImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,15 +19,22 @@ import java.util.*;
 /**
  * Created by admin on 04.06.2017.
  */
+@Component
 public class AllChecksListController implements MVCController {
+    @Autowired
+    private  ChecksSearch checksSearch;
+    @Autowired
+    private UsersSearch usersSearch;
+    @Autowired
+    UsersMoneyAccountSearch usersMoneyAccountSearch;
     @Override
     public MVCModel processRequestGet(HttpServletRequest request, HttpServletResponse response) {
 
         Map<String, String> params = new HashMap<>();
         String varTextC= "";
-        ChecksSearch checksSearch = new ChecksSearchImpl();
+        /*ChecksSearch checksSearch = new ChecksSearchImpl();
         UsersSearch usersSearch = new UsersSearchImpl();
-        UsersMoneyAccountSearch usersMoneyAccountSearch = new UsersMoneyAccountSearchImpl();
+        UsersMoneyAccountSearch usersMoneyAccountSearch = new UsersMoneyAccountSearchImpl();*/
         Optional<List<Checks>> checksOptional = checksSearch.getAllChecks();
         List<Checks> checksList = new ArrayList<>();
         if (checksOptional == null){

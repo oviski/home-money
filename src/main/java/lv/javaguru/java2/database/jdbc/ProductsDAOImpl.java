@@ -2,6 +2,7 @@ import lv.javaguru.java2.database.DBException;
 import lv.javaguru.java2.database.ProductsDAO;
 import lv.javaguru.java2.database.jdbc.DAOImpl;
 import lv.javaguru.java2.domain.products.Products;
+import org.springframework.stereotype.Component;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

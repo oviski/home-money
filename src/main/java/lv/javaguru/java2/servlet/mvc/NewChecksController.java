@@ -8,6 +8,8 @@ import lv.javaguru.java2.services.userServices.UsersSearch;
 import lv.javaguru.java2.services.userServices.UsersSearchImpl;
 import lv.javaguru.java2.services.usersMoneyAccountServices.UsersMoneyAccountSearch;
 import lv.javaguru.java2.services.usersMoneyAccountServices.UsersMoneyAccountSearchImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -22,14 +24,21 @@ import java.util.Optional;
 /**
  * Created by admin on 05.06.2017.
  */
+@Component
 public class NewChecksController implements MVCController {
+    @Autowired
+    private UsersSearch usersSearch;
+    @Autowired
+    private UsersMoneyAccountSearch usersMoneyAccountSearch;
+    @Autowired
+    private ChecksFactory checksFactory;
     @Override
     public MVCModel processRequestGet(HttpServletRequest request, HttpServletResponse response) {
         response.setContentType("text/html");
 
         Map<String, String> params = new HashMap<>();
         String varTextB = "";
-        UsersSearch usersSearch = new UsersSearchImpl();
+        //UsersSearch usersSearch = new UsersSearchImpl();
         Optional<List<Users>> usersOptional = usersSearch.getAllUsers();
 
         for (Users users:usersOptional.get()){
@@ -38,7 +47,7 @@ public class NewChecksController implements MVCController {
         params.put("jspUserList", varTextB);
 
         String varTextA = "";
-        UsersMoneyAccountSearch usersMoneyAccountSearch = new UsersMoneyAccountSearchImpl();
+       // UsersMoneyAccountSearch usersMoneyAccountSearch = new UsersMoneyAccountSearchImpl();
         Optional<List<UsersMoneyAccount>> usersMoneyAccountsOptional = usersMoneyAccountSearch.getAllUsersMoneyAccounts();
 
         for (UsersMoneyAccount usersMoneyAccount:usersMoneyAccountsOptional.get()){
@@ -58,7 +67,7 @@ public class NewChecksController implements MVCController {
 
     @Override
     public MVCModel processRequestPost(HttpServletRequest request, HttpServletResponse response) {
-        ChecksFactory checksFactory = new ChecksFactoryImpl();
+        //ChecksFactory checksFactory = new ChecksFactoryImpl();
         Map<String, String> params = new HashMap<>();
 
         try {

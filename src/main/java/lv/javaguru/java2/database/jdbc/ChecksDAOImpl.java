@@ -4,6 +4,7 @@ import lv.javaguru.java2.database.ChecksDAO;
 import lv.javaguru.java2.database.DBException;
 import lv.javaguru.java2.database.jdbc.DAOImpl;
 import lv.javaguru.java2.domain.checks.Checks;
+import org.springframework.stereotype.Component;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,6 +16,7 @@ import java.util.Optional;
 /**
  * Created by admin on 01.05.2017.
  */
+@Component
 public class ChecksDAOImpl extends DAOImpl implements ChecksDAO {
     @Override
     public Checks save(Checks checks) throws DBException {

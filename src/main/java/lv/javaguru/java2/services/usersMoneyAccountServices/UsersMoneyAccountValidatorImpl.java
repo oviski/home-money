@@ -1,8 +1,11 @@
 package lv.javaguru.java2.services.usersMoneyAccountServices;
 
+import org.springframework.stereotype.Component;
+
 /**
  * Created by admin on 09.05.2017.
  */
+@Component
 public class UsersMoneyAccountValidatorImpl implements UsersMoneyAccountValidator {
 
     @Override

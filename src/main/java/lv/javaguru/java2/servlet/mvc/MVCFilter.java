@@ -1,6 +1,11 @@
 package lv.javaguru.java2.servlet.mvc;
 
 
+import lv.javaguru.java2.configs.SpringConfig;
+import org.apache.xmlbeans.impl.xb.xsdschema.All;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,16 +16,27 @@ import java.util.Map;
 /**
  * Created by admin on 04.06.2017.
  */
+
+
 public class MVCFilter implements Filter {
+    private ApplicationContext springContext;
+
     private Map<String, MVCController> controllerMapping;
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        controllerMapping = new HashMap<String, MVCController>();
-        controllerMapping.put("/allChecksList", new AllChecksListController());
-        controllerMapping.put("/newCheck", new NewChecksController());
+        springContext = new AnnotationConfigApplicationContext(SpringConfig.class);
+
+        controllerMapping = new HashMap();
+        controllerMapping.put("/allChecksList", getBean(AllChecksListController.class));
+        controllerMapping.put("/newCheck", getBean(NewChecksController.class));
 
     }
+
+    private MVCController getBean(Class clazz){
+        return (MVCController) springContext.getBean(clazz);
+    }
+
 
     @Override
     public void doFilter(ServletRequest request,
