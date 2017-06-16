@@ -1,4 +1,4 @@
-package lv.javaguru.java2.servlet.mvc;
+package lv.javaguru.java2.smvc;
 
 import lv.javaguru.java2.domain.checks.Checks;
 import lv.javaguru.java2.domain.users.Users;
@@ -10,37 +10,39 @@ import lv.javaguru.java2.services.userServices.UsersSearch;
 import lv.javaguru.java2.services.usersMoneyAccountServices.UsersMoneyAccountSearch;
 //import lv.javaguru.java2.services.usersMoneyAccountServices.UsersMoneyAccountSearchImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 /**
- * Created by admin on 04.06.2017.
+ * Created by admin on 09.06.2017.
  */
+
 @Controller
-@RequestMapping(value="/allCheckList")
-@Component
-public class AllChecksListController implements MVCController {
+@RequestMapping("/smvcAllChecksList")
+public class SpringAllChecksListController {
     @Autowired
-    private  ChecksSearch checksSearch;
+    private ChecksSearch checksSearch;
     @Autowired
     private UsersSearch usersSearch;
     @Autowired
-    UsersMoneyAccountSearch usersMoneyAccountSearch;
-    @RequestMapping(method = RequestMethod.GET)
-    @Override
-    public MVCModel processRequestGet(HttpServletRequest request, HttpServletResponse response) {
+    private UsersMoneyAccountSearch usersMoneyAccountSearch;
 
-        Map<String, String> params = new HashMap<>();
+
+    @RequestMapping(method = RequestMethod.GET)
+    public String doGet(HttpServletRequest req, HttpServletResponse resp, Model model){
         String varTextC= "";
-        /*ChecksSearch checksSearch = new ChecksSearchImpl();
-        UsersSearch usersSearch = new UsersSearchImpl();
-        UsersMoneyAccountSearch usersMoneyAccountSearch = new UsersMoneyAccountSearchImpl();*/
+//        ChecksSearch checksSearch = new ChecksSearchImpl();
+//        UsersSearch usersSearch = new UsersSearchImpl();
+//        UsersMoneyAccountSearch usersMoneyAccountSearch = new UsersMoneyAccountSearchImpl();
         Optional<List<Checks>> checksOptional = checksSearch.getAllChecks();
         List<Checks> checksList = new ArrayList<>();
         if (checksOptional == null){
@@ -62,15 +64,10 @@ public class AllChecksListController implements MVCController {
                         + checks.getComments() + "</td></tr>";
             }
         }
-        params.put("jspChecksList", varTextC);
+        model.addAttribute("jspChecksList", varTextC);
+        return "smvcAllChecksList";
+        //return "smvcAllChecksList";
 
-        MVCModel model = new MVCModel("/allCheckList.jsp", params);
-        return model;
     }
 
-    @RequestMapping (method = RequestMethod.POST)
-    @Override
-    public MVCModel processRequestPost(HttpServletRequest request, HttpServletResponse response) {
-        return processRequestGet(request, response);
-    }
 }

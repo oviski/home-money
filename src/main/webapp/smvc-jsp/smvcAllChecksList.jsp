@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <html>
  <head>
@@ -20,7 +21,7 @@
   </style>
  </head>
  <h1 style="color:blue;">List Of All Checks</h1>
- <a href = "/java2/smvc/newCheck">Add New Check </a><br><br>
+ <a href = "smvcNewCheck">Add New Check </a><br><br>
  <body>
   <table cellspacing="0">
    <tr>

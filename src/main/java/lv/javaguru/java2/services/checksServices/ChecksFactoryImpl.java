@@ -43,7 +43,9 @@ public class ChecksFactoryImpl implements ChecksFactory {
 
     @Override
     public Checks createFromMap(Map<String, String[]> params) throws ParseException, SQLException {
+
         checksValidator.validateMaps(params);
+
         DateFormat format = new SimpleDateFormat("dd.MM.yyyy");
         return create(
                 format.parse(params.get("dataPourches")[0]),

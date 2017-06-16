@@ -2,6 +2,7 @@ package lv.javaguru.java2.servlet.mvc;
 
 
 import lv.javaguru.java2.configs.SpringConfig;
+import lv.javaguru.java2.smvc.SpringMvcConfig;
 import org.apache.xmlbeans.impl.xb.xsdschema.All;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -17,7 +18,7 @@ import java.util.Map;
  * Created by admin on 04.06.2017.
  */
 
-
+/*
 public class MVCFilter implements Filter {
     private ApplicationContext springContext;
 
@@ -88,3 +89,4 @@ public class MVCFilter implements Filter {
     }
 
 }
+*/
