@@ -7,7 +7,9 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.resource.ResourceUrlEncodingFilter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 /**
@@ -15,7 +17,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
  */
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = "lv.javaguru.java2/smvc")
+@ComponentScan(basePackages = "lv.javaguru.java2")
 public class SpringMvcConfig extends WebMvcConfigurerAdapter {
     @Bean
     public ViewResolver viewResolver() {
@@ -27,9 +29,16 @@ public class SpringMvcConfig extends WebMvcConfigurerAdapter {
 /*
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("*//**").addResourceLocations("/");
-    }*/
+        registry.addResourceHandler("/**").addResourceLocations("/");
+    }
+    */
 
+/*
+    @Bean
+    public ResourceUrlEncodingFilter resourceUrlEncodingFilter() {
+        return new ResourceUrlEncodingFilter();
+    }
+*/
     @Bean("modelAndView")
     @Scope("request")
     public ModelAndView getModelAndView(){

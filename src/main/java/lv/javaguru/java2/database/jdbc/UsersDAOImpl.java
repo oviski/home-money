@@ -15,7 +15,7 @@ import java.util.Optional;
 /**
  * Created by admin on 03.05.2017.
  */
-@Component
+//@Component
 public class UsersDAOImpl extends DAOImpl implements UsersDAO {
 
     public Users save(Users users) throws DBException {

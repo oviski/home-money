@@ -1,11 +1,20 @@
 package lv.javaguru.java2.domain.usersMoneyAccount;
 
+import javax.persistence.*;
+
 /**
  * Created by admin on 24.04.2017.
  */
+@Entity
+@Table (name = "usersmoneyaccount")
 public class UsersMoneyAccount {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "UserMoneyAccountID")
     private Integer userMoneyAccountID;
+    @Column(name = "UserID")
     private Integer userID;
+    @Column(name = "MoneyAccountName")
     private String moneyAccountName;
 
     public Integer getUserMoneyAccountID() {

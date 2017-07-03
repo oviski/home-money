@@ -3,7 +3,7 @@ package lv.javaguru.java2.servlet;
 
 import lv.javaguru.java2.database.ChecksDAO;
 import lv.javaguru.java2.database.UsersMoneyAccountDAO;
-import lv.javaguru.java2.database.jdbc.ChecksDAOImpl;
+//import lv.javaguru.java2.database.jdbc.ChecksDAOImpl;
 import lv.javaguru.java2.database.jdbc.UsersDAOImpl;
 import lv.javaguru.java2.database.jdbc.UsersMoneyAccountDAOImpl;
 import lv.javaguru.java2.domain.checks.Checks;

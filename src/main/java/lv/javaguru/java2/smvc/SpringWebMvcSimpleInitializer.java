@@ -17,11 +17,14 @@ public class SpringWebMvcSimpleInitializer extends
 
     @Override
     protected Class<?>[] getServletConfigClasses() {
-        return new Class[]{SpringMvcConfig.class};
+
+        return new Class[]{
+                SpringMvcConfig.class};
     }
 
     @Override
     protected String[] getServletMappings() {
+
         return new String[]{"/smvc/*"};
     }
 }

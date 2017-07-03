@@ -1,11 +1,21 @@
 package lv.javaguru.java2.domain.category;
 
+
+import javax.persistence.*;
+
 /**
  * Created by admin on 21.04.2017.
  */
+@Entity
+@Table(name = "category")
 public class Category {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "CategoryID")
     private Integer categoryID;
+    @Column (name = "CategoryName")
     private String categoryName;
+    @Column (name = "SubcategoryAllow", columnDefinition = "bit")
     private Boolean subcategoryAllow;
 
     public Integer getCategoryID() {

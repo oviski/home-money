@@ -1,10 +1,18 @@
 package lv.javaguru.java2.domain.users;
 
+import javax.persistence.*;
+
 /**
  * Created by admin on 24.04.2017.
  */
+@Entity
+@Table(name = "users")
 public class Users {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column (name = "UserID")
     private Integer userID;
+    @Column(name = "UserName")
     private String userName;
 
     public Integer getUserID() {

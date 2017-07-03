@@ -1,7 +1,7 @@
 package lv.javaguru.java2.services.checksServices;
 
 import lv.javaguru.java2.database.ChecksDAO;
-import lv.javaguru.java2.database.jdbc.ChecksDAOImpl;
+//import lv.javaguru.java2.database.jdbc.ChecksDAOImpl;
 import lv.javaguru.java2.domain.checks.Checks;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

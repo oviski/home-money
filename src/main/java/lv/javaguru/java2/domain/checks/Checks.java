@@ -1,18 +1,33 @@
 package lv.javaguru.java2.domain.checks;
 
+
+import javax.persistence.*;
 import java.util.Date;
 
 /**
  * Created by admin on 20.04.2017.
  */
+@Entity
+@Table(name = "checks")
 public class Checks {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "CheckID")
     private Long checkID;
+    @Column(name = "DatePourches")
+    @Temporal(value = TemporalType.DATE)
     private Date dataPourches;
+    @Column(name = "SumOfCheck")
     private Long sumOfCheck;
+    @Column (name = "ShopName")
     private String shopName;
+    @Column(name = "WhoPayID")
     private Integer userID;
+    @Column (name = "UserMoneyAccountID")
     private Integer userMoneyAccountID;
+    @Column (name = "DetailsAllow", columnDefinition = "bit")
     private Boolean detailAllow;
+    @Column (name = "Comments")
     private String comments;
 
     public Long getCheckID() {

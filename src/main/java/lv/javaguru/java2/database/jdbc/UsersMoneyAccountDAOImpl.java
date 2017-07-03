@@ -16,7 +16,7 @@ import java.util.Optional;
 /**
  * Created by admin on 04.05.2017.
  */
-@Component
+//@Component
 public class UsersMoneyAccountDAOImpl extends DAOImpl implements UsersMoneyAccountDAO {
     @Override
     public UsersMoneyAccount save(UsersMoneyAccount usersMoneyAccount) throws DBException {
