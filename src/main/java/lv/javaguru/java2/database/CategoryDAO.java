@@ -15,7 +15,7 @@ public interface CategoryDAO {
 
     void delete(Integer id);
 
-    void update(Category user);
+    void update(Category category);
 
     List<Category> getAll();
 

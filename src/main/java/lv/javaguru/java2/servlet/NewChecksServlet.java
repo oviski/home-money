@@ -1,18 +1,13 @@
 package lv.javaguru.java2.servlet;
 
 
-import lv.javaguru.java2.database.ChecksDAO;
-import lv.javaguru.java2.database.UsersMoneyAccountDAO;
 //import lv.javaguru.java2.database.jdbc.ChecksDAOImpl;
-import lv.javaguru.java2.database.jdbc.UsersDAOImpl;
-import lv.javaguru.java2.database.jdbc.UsersMoneyAccountDAOImpl;
-import lv.javaguru.java2.domain.checks.Checks;
 import lv.javaguru.java2.domain.users.Users;
 import lv.javaguru.java2.domain.usersMoneyAccount.UsersMoneyAccount;
 import lv.javaguru.java2.services.checksServices.ChecksFactory;
 import lv.javaguru.java2.services.checksServices.ChecksFactoryImpl;
-import lv.javaguru.java2.services.userServices.UsersSearch;
-import lv.javaguru.java2.services.userServices.UsersSearchImpl;
+import lv.javaguru.java2.services.usersServices.UsersSearch;
+import lv.javaguru.java2.services.usersServices.UsersSearchImpl;
 import lv.javaguru.java2.services.usersMoneyAccountServices.UsersMoneyAccountSearch;
 import lv.javaguru.java2.services.usersMoneyAccountServices.UsersMoneyAccountSearchImpl;
 
@@ -23,11 +18,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.SQLException;
+        import java.sql.SQLException;
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.List;
+        import java.util.List;
 import java.util.Optional;
 
 /**

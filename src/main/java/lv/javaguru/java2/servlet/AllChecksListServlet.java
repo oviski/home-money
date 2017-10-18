@@ -1,16 +1,13 @@
 package lv.javaguru.java2.servlet;
 
-import lv.javaguru.java2.database.UsersMoneyAccountDAO;
 //import lv.javaguru.java2.database.jdbc.ChecksDAOImpl;
-import lv.javaguru.java2.database.jdbc.UsersDAOImpl;
-import lv.javaguru.java2.database.jdbc.UsersMoneyAccountDAOImpl;
 import lv.javaguru.java2.domain.checks.Checks;
 import lv.javaguru.java2.domain.users.Users;
 import lv.javaguru.java2.domain.usersMoneyAccount.UsersMoneyAccount;
 import lv.javaguru.java2.services.checksServices.ChecksSearch;
 import lv.javaguru.java2.services.checksServices.ChecksSearchImpl;
-import lv.javaguru.java2.services.userServices.UsersSearch;
-import lv.javaguru.java2.services.userServices.UsersSearchImpl;
+import lv.javaguru.java2.services.usersServices.UsersSearch;
+import lv.javaguru.java2.services.usersServices.UsersSearchImpl;
 import lv.javaguru.java2.services.usersMoneyAccountServices.UsersMoneyAccountSearch;
 import lv.javaguru.java2.services.usersMoneyAccountServices.UsersMoneyAccountSearchImpl;
 

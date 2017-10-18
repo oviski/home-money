@@ -1,13 +1,7 @@
 package lv.javaguru.java2.services.usersMoneyAccountServices;
 
-import lv.javaguru.java2.database.UsersDAO;
 import lv.javaguru.java2.database.UsersMoneyAccountDAO;
-import lv.javaguru.java2.database.jdbc.UsersDAOImpl;
-import lv.javaguru.java2.database.jdbc.UsersMoneyAccountDAOImpl;
-import lv.javaguru.java2.domain.users.Users;
 import lv.javaguru.java2.domain.usersMoneyAccount.UsersMoneyAccount;
-import lv.javaguru.java2.services.userServices.UsersValidator;
-import lv.javaguru.java2.services.userServices.UsersValidatorImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

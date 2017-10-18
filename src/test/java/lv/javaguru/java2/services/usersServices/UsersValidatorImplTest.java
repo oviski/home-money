@@ -1,10 +1,8 @@
-package lv.javaguru.java2.services.userServices;
+package lv.javaguru.java2.services.usersServices;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-
-import static org.junit.Assert.*;
 
 /**
  * Created by admin on 09.05.2017.
@@ -46,7 +44,7 @@ public class UsersValidatorImplTest {
     @Test
     public void shouldThtowExceptionWhenNameStartsFromLowSymbols(){
         thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("Users name nust starts from High Symbols!");
+        thrown.expectMessage("Users name must starts from High Symbols!");
         validator.validate("sveta");
     }
 

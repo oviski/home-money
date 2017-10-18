@@ -1,11 +1,20 @@
 package lv.javaguru.java2.domain.subcategory;
 
+import javax.persistence.*;
+
 /**
  * Created by admin on 23.04.2017.
  */
+@Entity
+@Table (name = "subcategory")
 public class Subcategory {
+    @Id
+    @GeneratedValue (strategy = GenerationType.AUTO)
+    @Column (name = "SubcategoryID")
     private Integer subcategoryID;
+    @Column (name = "CategoryID")
     private Integer categoryID;
+    @Column (name = "SubcategoryName")
     private String subcategoryName;
 
     public Integer getSubcategoryID() {

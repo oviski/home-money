@@ -1,12 +1,10 @@
-package lv.javaguru.java2.services.userServices;
+package lv.javaguru.java2.services.usersServices;
 
 import lv.javaguru.java2.database.UsersDAO;
-import lv.javaguru.java2.database.jdbc.UsersDAOImpl;
 import lv.javaguru.java2.domain.users.Users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 

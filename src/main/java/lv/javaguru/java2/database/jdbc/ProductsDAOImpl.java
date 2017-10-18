@@ -2,7 +2,6 @@ import lv.javaguru.java2.database.DBException;
 import lv.javaguru.java2.database.ProductsDAO;
 import lv.javaguru.java2.database.jdbc.DAOImpl;
 import lv.javaguru.java2.domain.products.Products;
-import org.springframework.stereotype.Component;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -70,7 +69,7 @@ public class ProductsDAOImpl extends DAOImpl implements ProductsDAO {
         }
     }
 
-    public List<Products> getAll() throws DBException {
+    public List getAll() throws DBException {
         List<Products> productsList = new ArrayList<Products>();
         Connection connection = null;
 

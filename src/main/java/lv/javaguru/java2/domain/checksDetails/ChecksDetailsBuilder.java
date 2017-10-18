@@ -4,7 +4,8 @@ package lv.javaguru.java2.domain.checksDetails;
  * Created by admin on 24.04.2017.
  */
 public class ChecksDetailsBuilder {
-    private Long checkDetailsID;
+//    private Long checkDetailsID;
+    private Long checkID;
     private Integer checkPositionID;
     private Integer categoryID;
     private Integer subcategoryID;
@@ -21,6 +22,7 @@ public class ChecksDetailsBuilder {
 
     public ChecksDetails build() {
         ChecksDetails checksDetails = new ChecksDetails();
+        checksDetails.setCheckID(checkID);
         checksDetails.setCheckPositionID(checkPositionID);
         checksDetails.setCategoryID(categoryID);
         checksDetails.setSubcategoryID(subcategoryID);
@@ -30,6 +32,10 @@ public class ChecksDetailsBuilder {
         return checksDetails;
     }
 
+    public ChecksDetailsBuilder withCheckID(Long checkID){
+        this.checkID = checkID;
+        return this;
+    }
     public ChecksDetailsBuilder withCheckPositionID(Integer checkPositionID){
         this.checkPositionID = checkPositionID;
         return this;

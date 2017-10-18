@@ -1,6 +1,4 @@
-package lv.javaguru.java2.services.userServices;
-
-import org.springframework.stereotype.Component;
+package lv.javaguru.java2.services.usersServices;
 
 /**
  * Created by admin on 09.05.2017.

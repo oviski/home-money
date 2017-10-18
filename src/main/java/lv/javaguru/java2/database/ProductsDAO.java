@@ -15,8 +15,8 @@ public interface ProductsDAO {
 
     void delete(Long id);
 
-    void update(Products user);
+    void update(Products products);
 
-    List<Products> getAll();
+    List getAll();
 
 }

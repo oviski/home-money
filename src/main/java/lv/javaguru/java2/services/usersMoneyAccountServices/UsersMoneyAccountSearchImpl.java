@@ -16,7 +16,7 @@ import java.util.Optional;
 @Component
 public class UsersMoneyAccountSearchImpl implements UsersMoneyAccountSearch {
     @Autowired
-    UsersMoneyAccountDAO usersMoneyAccountDAO;
+    private UsersMoneyAccountDAO usersMoneyAccountDAO;
     @Override
     public Optional<List<UsersMoneyAccount>> getAllUsersMoneyAccounts() {
         //UsersMoneyAccountDAO usersMoneyAccountDAO = new UsersMoneyAccountDAOImpl();

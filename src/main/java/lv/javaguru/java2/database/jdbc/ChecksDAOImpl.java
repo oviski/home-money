@@ -16,11 +16,7 @@ import java.util.Optional;
 /**
  * Created by admin on 01.05.2017.
  */
-//
-// @Component
-
-
-/*
+//@Component
 public class ChecksDAOImpl extends DAOImpl implements ChecksDAO {
     @Override
     public Checks save(Checks checks) throws DBException {
@@ -167,5 +163,4 @@ public class ChecksDAOImpl extends DAOImpl implements ChecksDAO {
 }
 
 
-*/
 

@@ -1,7 +1,6 @@
-package lv.javaguru.java2.services.userServices;
+package lv.javaguru.java2.services.usersServices;
 
 import lv.javaguru.java2.domain.users.Users;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;

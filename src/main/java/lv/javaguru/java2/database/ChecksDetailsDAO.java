@@ -15,7 +15,7 @@ public interface ChecksDetailsDAO {
 
     void delete(Long id);
 
-    void update(ChecksDetails user);
+    void update(ChecksDetails checksDetails);
 
     List<ChecksDetails> getAll();
 

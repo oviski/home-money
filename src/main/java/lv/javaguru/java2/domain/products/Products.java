@@ -1,12 +1,22 @@
 package lv.javaguru.java2.domain.products;
 
+import javax.persistence.*;
+
 /**
  * Created by admin on 23.04.2017.
  */
+@Entity
+@Table (name = "products")
 public class Products {
+    @Id
+    @GeneratedValue (strategy = GenerationType.AUTO)
+    @Column (name = "ProductID")
     private Long productID;
+    @Column (name = "CategoryID")
     private Integer categoryID;
+    @Column (name = "SubcategoryID")
     private Integer subcategoryID;
+    @Column (name = "ProductsName")
     private String productsName;
 
 
